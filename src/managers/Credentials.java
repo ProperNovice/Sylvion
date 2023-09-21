@@ -37,11 +37,9 @@ public enum Credentials {
 
 		// d card
 
-		y = this.dFrame.y;
-		y -= 2 * this.gapBetweenBorders;
-		y -= 3 * this.dGapBetweenComponents.y;
-		y /= 4;
-		System.out.println(y);
+		x = 213;
+		y = 326;
+		this.dCard = new Vector2(x, y);
 
 	}
 
