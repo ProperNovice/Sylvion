@@ -1,7 +1,6 @@
 package gameStates;
 
-import cards.CardSylvanAnimal;
-import enums.ECardSylvanAnimal;
+import cards.CardElementalRavage;
 import gameStatesDefault.GameState;
 
 public class JUnit extends GameState {
@@ -9,7 +8,7 @@ public class JUnit extends GameState {
 	@Override
 	public void execute() {
 
-		new CardSylvanAnimal(ECardSylvanAnimal.WHALE).print();
+		new CardElementalRavage(3).print();
 
 	}
 
