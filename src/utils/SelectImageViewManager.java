@@ -80,7 +80,7 @@ public enum SelectImageViewManager {
 
 		double width = coordinatesAble.getSelectDimension();
 		selectImageView.getImageView().setWidth(width);
-		selectImageView.getImageView().relocateCenter(coordinatesAble.getSelectCoordinatesCenter());
+		selectImageView.getImageView().relocateCenter(coordinatesAble.getCoordinatesCenter());
 
 	}
 

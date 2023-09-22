@@ -7,14 +7,15 @@ public enum Credentials {
 
 	INSTANCE;
 
-	public final String primaryStageTitle = "Sylvion", numbersImageViewColor = "black";
-	public final boolean colliderVisibility = true;
-	public final double gapBetweenBorders = 25, textHeight = 50,
-			selectEventHandlerAbleDimension = 100, animationStep = 4;
+	public String primaryStageTitle = "Sylvion", numbersImageViewColor = "black";
+	public boolean colliderVisibility = true;
+	public double gapBetweenBorders = 25, textHeight = 50, selectEventHandlerAbleDimension = 100,
+			animationStep = 4;
 	public Vector2 dFrame, dGapBetweenComponents, dGapBetweenComponentsLineCast;
 	public Vector2 cTextPanel, cImageViewIndicator;
 	public RearrangeTypeEnum rearrangeTypeEnumText = RearrangeTypeEnum.LINEAR;
 
+	public Vector2 cCardPosition;
 	public Vector2 dCard;
 
 	private Credentials() {
@@ -40,6 +41,21 @@ public enum Credentials {
 		x = 213;
 		y = 326;
 		this.dCard = new Vector2(x, y);
+
+		// select event handler dimension
+
+		this.selectEventHandlerAbleDimension = this.dCard.x / 2;
+
+		// d card position
+
+		x = this.dFrame.x;
+		x -= this.gapBetweenBorders;
+		x -= 5 * this.dCard.x;
+		x -= 4 * this.dGapBetweenComponents.x;
+		x += this.dCard.x / 2;
+		y = this.gapBetweenBorders;
+		y += this.dCard.y / 2;
+		this.cCardPosition = new Vector2(x, y);
 
 	}
 

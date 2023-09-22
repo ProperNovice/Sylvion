@@ -75,7 +75,7 @@ public class Interfaces {
 
 	public interface ISelectCoordinatesAble extends IMouseEventAble {
 
-		public Vector2 getSelectCoordinatesCenter();
+		public Vector2 getCoordinatesCenter();
 
 		public default double getSelectDimension() {
 			return Credentials.INSTANCE.selectEventHandlerAbleDimension;
