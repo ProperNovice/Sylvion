@@ -1,5 +1,6 @@
 package model;
 
+import cards.Card;
 import utils.Interfaces.ISelectCoordinatesAble;
 import utils.Logger;
 import utils.Vector2;
@@ -8,6 +9,7 @@ public class CardPosition implements ISelectCoordinatesAble {
 
 	private int row, column;
 	private Vector2 coordinatesCenter = null;
+	private Card card = null;
 
 	public CardPosition(int row, int column, Vector2 vector2) {
 
@@ -15,6 +17,41 @@ public class CardPosition implements ISelectCoordinatesAble {
 		this.column = column;
 		this.coordinatesCenter = vector2;
 
+	}
+
+	public void addCardRelocate(Card card) {
+
+		this.card = card;
+		this.card.getImageView().relocateCenter(this.coordinatesCenter);
+
+		printAction("adding", this.card);
+
+	}
+
+	public Card removeCard() {
+
+		Card card = this.card;
+		this.card = null;
+
+		printAction("removing", card);
+
+		return card;
+
+	}
+
+	private void printAction(String action, Card card) {
+
+		Logger.INSTANCE.logNewLine("adding card to position -> " + this.row + " - " + this.column);
+		card.print();
+
+	}
+
+	public boolean containsCard() {
+		return this.card != null;
+	}
+
+	public Card getCard() {
+		return this.card;
 	}
 
 	@Override

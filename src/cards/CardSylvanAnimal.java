@@ -36,8 +36,8 @@ public class CardSylvanAnimal extends CardSylvan implements ICostAble, IAnimal {
 	}
 
 	@Override
-	protected String getFilePath() {
-		return super.getFilePath() + "animal/" + this.eCardSylvanAnimal.toString().toLowerCase()
+	protected String getFilePathFront() {
+		return super.getFilePathFront() + "animal/" + this.eCardSylvanAnimal.toString().toLowerCase()
 				+ ".jpg";
 	}
 

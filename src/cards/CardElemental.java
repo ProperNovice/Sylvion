@@ -28,8 +28,8 @@ public class CardElemental extends CardRavage implements IStrengthAble {
 	}
 
 	@Override
-	protected final String getFilePath() {
-		return super.getFilePath() + getFolder() + this.strength + ".jpg";
+	protected final String getFilePathFront() {
+		return super.getFilePathFront() + getFolder() + this.strength + ".jpg";
 	}
 
 	protected String getFolder() {

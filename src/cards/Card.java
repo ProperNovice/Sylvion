@@ -13,8 +13,9 @@ public abstract class Card implements IImageViewAble {
 
 	protected final void createCard() {
 
-		new ImageView(getFilePath(), this);
+		new ImageView(getFilePathFront(), this);
 		getImageView().setDimensions(Credentials.INSTANCE.dCard);
+		getImageView().setBack(getFilePathBack());
 
 	}
 
@@ -35,6 +36,8 @@ public abstract class Card implements IImageViewAble {
 
 	}
 
-	protected abstract String getFilePath();
+	protected abstract String getFilePathFront();
+
+	protected abstract String getFilePathBack();
 
 }

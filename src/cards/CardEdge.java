@@ -13,7 +13,7 @@ public class CardEdge extends Card implements IValue {
 
 		super.createCard();
 
-		String back = "edge/desolated/";
+		String back = getFilePathBack();
 		back += this.value;
 		back += ".jpg";
 		getImageView().setBack(back);
@@ -33,8 +33,13 @@ public class CardEdge extends Card implements IValue {
 	}
 
 	@Override
-	protected String getFilePath() {
+	protected String getFilePathFront() {
 		return "edge/bloom.jpg";
+	}
+
+	@Override
+	protected String getFilePathBack() {
+		return "edge/desolated/";
 	}
 
 }

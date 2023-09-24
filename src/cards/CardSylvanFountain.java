@@ -36,8 +36,8 @@ public class CardSylvanFountain extends CardSylvan implements ICostAble, IStreng
 	}
 
 	@Override
-	protected String getFilePath() {
-		return super.getFilePath() + "fountain/" + this.cost + ".jpg";
+	protected String getFilePathFront() {
+		return super.getFilePathFront() + "fountain/" + this.cost + ".jpg";
 	}
 
 }

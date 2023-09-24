@@ -37,8 +37,8 @@ public class CardRavageSupport extends CardRavage implements ISupport, IResolveO
 	}
 
 	@Override
-	protected String getFilePath() {
-		return super.getFilePath() + "support/" + eCardRavageSupport.toString().toLowerCase()
+	protected String getFilePathFront() {
+		return super.getFilePathFront() + "support/" + eCardRavageSupport.toString().toLowerCase()
 				+ ".jpg";
 	}
 

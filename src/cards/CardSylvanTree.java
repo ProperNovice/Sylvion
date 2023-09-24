@@ -45,8 +45,8 @@ public class CardSylvanTree extends CardSylvan
 	}
 
 	@Override
-	protected String getFilePath() {
-		return super.getFilePath() + "tree/" + this.cost + ".jpg";
+	protected String getFilePathFront() {
+		return super.getFilePathFront() + "tree/" + this.cost + ".jpg";
 	}
 
 }
