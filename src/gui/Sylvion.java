@@ -24,7 +24,6 @@ import utils.Vector2;
 public class Sylvion extends Application {
 
 	private Vector2 dimensionsInsets = new Vector2(16, 39);
-	private double pixesOnTheLeft = 180;
 
 	private void start() {
 
@@ -104,8 +103,8 @@ public class Sylvion extends Application {
 
 		primaryStage.setTitle(Credentials.INSTANCE.primaryStageTitle);
 
-		primaryStage.setX(
-				(Screen.getPrimary().getBounds().getWidth() - width) / 2 - this.pixesOnTheLeft);
+		primaryStage.setX((Screen.getPrimary().getBounds().getWidth() - width) / 2
+				- Credentials.INSTANCE.stagePixesOnTheLeft);
 
 		double y = 0;
 		y += Screen.getPrimary().getBounds().getHeight();
