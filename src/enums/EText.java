@@ -12,6 +12,9 @@ public enum EText {
 	VOID("", TextTypeEnum.INDICATOR),
 	YOU_LOST("You lost", TextTypeEnum.INDICATOR),
 	YOU_WON("You won", TextTypeEnum.INDICATOR),
+	MOVE_ELEMENTALS("Move elementals", TextTypeEnum.INDICATOR),
+	DRAW_CARD("Draw card", TextTypeEnum.INDICATOR),
+	REVEAL_RAVAGE_CARDS("Reveal ravage cards", TextTypeEnum.INDICATOR),
 
 	;
 

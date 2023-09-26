@@ -11,6 +11,7 @@ public class DiscardPile extends ListCredentials {
 		super.rearrangeTypeEnum = RearrangeTypeEnum.STATIC;
 		super.coordinatesList = Credentials.INSTANCE.cDiscardPile;
 		super.layerZListEnum = LayerZListEnum.TO_FRONT_FIRST_IMAGEVIEW;
+		super.showListSize = true;
 
 	}
 

@@ -24,7 +24,7 @@ public class CardPosition implements ISelectCoordinatesAble {
 		this.card = card;
 		this.card.getImageView().relocateCenter(this.coordinatesCenter);
 
-		printAction("adding", this.card);
+		printAction("adding", "to", this.card);
 
 	}
 
@@ -33,15 +33,17 @@ public class CardPosition implements ISelectCoordinatesAble {
 		Card card = this.card;
 		this.card = null;
 
-		printAction("removing", card);
+		printAction("removing", "from", card);
 
 		return card;
 
 	}
 
-	private void printAction(String action, Card card) {
+	private void printAction(String stringA, String stringB, Card card) {
 
-		Logger.INSTANCE.logNewLine("adding card to position -> " + this.row + " - " + this.column);
+		Logger.INSTANCE.log(stringA + " card " + stringB + " position:");
+		Logger.INSTANCE.logNewLine(this.row + " - " + this.column);
+
 		card.print();
 
 	}

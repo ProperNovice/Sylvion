@@ -36,8 +36,24 @@ public enum ManagerCardPosition {
 
 	}
 
-	public ArrayList<CardPosition> getCardPositions() {
-		return this.list;
+	public CardPosition getCardPosition(int row, int column) {
+
+		CardPosition cardPosition = null;
+
+		for (CardPosition cardPositionTemp : this.list)
+			if (cardPositionTemp.getRow() != row)
+				continue;
+			else if (cardPositionTemp.getColumn() != column)
+				continue;
+			else
+				cardPosition = cardPositionTemp;
+
+		return cardPosition;
+
+	}
+
+	public ArrayList<CardPosition> getCardPositionsClone() {
+		return this.list.clone();
 	}
 
 }

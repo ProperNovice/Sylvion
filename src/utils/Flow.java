@@ -49,13 +49,13 @@ public enum Flow {
 
 	public void print() {
 
-		Logger.INSTANCE.logNewLine("-> printing flow started");
+		Logger.INSTANCE.logNewLine("/* printing flow");
 
 		for (Class<? extends GameState> classGameState : this.flow)
 			Logger.INSTANCE.log(classGameState.getSimpleName());
 
 		Logger.INSTANCE.newLine();
-		Logger.INSTANCE.logNewLine("<- printing flow ended");
+		Logger.INSTANCE.logNewLine("*/ printing flow");
 
 	}
 
