@@ -3,6 +3,7 @@ package model;
 import cards.Card;
 import utils.Interfaces.ISelectCoordinatesAble;
 import utils.Logger;
+import utils.ShutDown;
 import utils.Vector2;
 
 public class CardPosition implements ISelectCoordinatesAble {
@@ -20,6 +21,9 @@ public class CardPosition implements ISelectCoordinatesAble {
 	}
 
 	public void addCardRelocate(Card card) {
+
+		if (this.card != null)
+			ShutDown.INSTANCE.execute();
 
 		this.card = card;
 		this.card.getImageView().relocateCenter(this.coordinatesCenter);

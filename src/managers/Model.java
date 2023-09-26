@@ -3,6 +3,7 @@ package managers;
 import cards.Card;
 import cards.CardEdge;
 import cards.CardElemental;
+import cards.CardElementalBlazing;
 import cards.CardRavage;
 import cards.CardRavageSupport;
 import cards.CardSylvan;
@@ -29,8 +30,8 @@ public enum Model {
 
 	public void executeCardRavageSupportBlaze() {
 
-		CardPosition cardPosition = getFirstCardRavageSupportToResolveInOrder();
-		cardPosition.removeCard().getImageView().setVisible(false);
+		CardPosition cardPositionRavageSupport = getFirstCardRavageSupportToResolveInOrder();
+		cardPositionRavageSupport.removeCard().getImageView().setVisible(false);
 
 		// create upgrade map
 
@@ -45,7 +46,25 @@ public enum Model {
 
 		ArrayList<CardPosition> list = new ArrayList<>();
 
-		for (CardPosition cardPositionTemp : Battlefield.INSTANCE.getCardPositionsClone()) {
+		for (CardPosition cardPosition : Battlefield.INSTANCE.getCardPositionsClone()) {
+
+			if (!cardPosition.containsCard())
+				continue;
+
+			Card card = cardPosition.getCard();
+
+			if (!(card instanceof CardElemental))
+				continue;
+
+			if (card instanceof CardElementalBlazing)
+				continue;
+
+			cardPosition.removeCard();
+
+			CardElemental cardElemental = (CardElemental) card;
+			int strength = cardElemental.getStrength();
+
+			cardElemental.getImageView().setVisible(false);
 
 		}
 
