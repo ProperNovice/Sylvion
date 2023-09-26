@@ -1,7 +1,8 @@
-package managers;
+package gameStates;
 
 import enums.EText;
 import gameStatesDefault.GameState;
+import managers.Model;
 
 public class RevealRavageCards extends GameState {
 

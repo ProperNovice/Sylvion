@@ -15,6 +15,9 @@ public enum EText {
 	MOVE_ELEMENTALS("Move elementals", TextTypeEnum.INDICATOR),
 	DRAW_CARD("Draw card", TextTypeEnum.INDICATOR),
 	REVEAL_RAVAGE_CARDS("Reveal ravage cards", TextTypeEnum.INDICATOR),
+	PLAY_HEDGEHOG("Play Hedgehog", TextTypeEnum.OPTION),
+	CHOOSE_CARD("Choose card", TextTypeEnum.INDICATOR),
+	RESOLVE_BLAZE("Resolve Blaze", TextTypeEnum.INDICATOR),
 
 	;
 

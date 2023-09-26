@@ -4,21 +4,191 @@ import cards.Card;
 import cards.CardEdge;
 import cards.CardElemental;
 import cards.CardRavage;
+import cards.CardRavageSupport;
 import cards.CardSylvan;
+import cards.CardSylvanAnimal;
 import cards.CardSylvanFountain;
+import enums.ECardRavageSupport;
+import enums.ECardSylvanAnimal;
+import enums.EResolveOrder;
 import gameStates.DrawCard;
+import gameStates.ExecuteCardRavageSupportBlaze;
 import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
 import interfaces.IStrengthAble;
 import model.CardPosition;
 import utils.ArrayList;
 import utils.Flow;
+import utils.HashMap;
 import utils.ListImageViewAbles;
 import utils.Logger;
 
 public enum Model {
 
 	INSTANCE;
+
+	public void executeCardRavageSupportBlaze() {
+
+		CardPosition cardPosition = getFirstCardRavageSupportToResolveInOrder();
+		cardPosition.removeCard().getImageView().setVisible(false);
+
+		// create upgrade map
+
+		HashMap<Integer, Integer> hashMap = new HashMap<>();
+
+		hashMap.put(0, 4);
+		hashMap.put(1, 2);
+		hashMap.put(2, 3);
+		hashMap.put(3, 4);
+
+		// get card positions with elementals
+
+		ArrayList<CardPosition> list = new ArrayList<>();
+
+		for (CardPosition cardPositionTemp : Battlefield.INSTANCE.getCardPositionsClone()) {
+
+		}
+
+	}
+
+	public void resolveCardRavageSupport() {
+
+		CardPosition cardPosition = getFirstCardRavageSupportToResolveInOrder();
+
+		if (cardPosition == null)
+			return;
+
+		// creating game states to resolve
+
+		HashMap<ECardRavageSupport, Class<? extends GameState>> hashMap = new HashMap<>();
+
+		hashMap.put(ECardRavageSupport.BLAZE, ExecuteCardRavageSupportBlaze.class);
+
+		// add game state
+
+		CardRavageSupport cardRavageSupport = (CardRavageSupport) cardPosition.getCard();
+		ECardRavageSupport eCardRavageSupport = cardRavageSupport.getECardRavageSupport();
+		cardRavageSupport.setSelected();
+
+		Flow.INSTANCE.getFlow().addFirst(hashMap.getValue(eCardRavageSupport));
+
+	}
+
+	private CardPosition getFirstCardRavageSupportToResolveInOrder() {
+
+		// creating support cards to resolve
+
+		HashMap<CardRavageSupport, CardPosition> hashMap = new HashMap<>();
+
+		for (int counter = 0; counter <= 3; counter++) {
+
+			CardPosition cardPosition = Battlefield.INSTANCE.getCardPosition(counter, 4);
+
+			if (!cardPosition.containsCard())
+				continue;
+
+			CardRavage cardRavage = (CardRavage) cardPosition.getCard();
+
+			if (!(cardRavage instanceof CardRavageSupport))
+				continue;
+
+			CardRavageSupport cardRavageSupport = (CardRavageSupport) cardRavage;
+
+			hashMap.put(cardRavageSupport, cardPosition);
+
+		}
+
+		// choosing card to resolve
+
+		for (EResolveOrder eResolveOrder : EResolveOrder.values()) {
+
+			for (CardRavageSupport cardRavageSupport : hashMap) {
+
+				if (!cardRavageSupport.getEResolveOrder().equals(eResolveOrder))
+					continue;
+
+				return hashMap.getValue(cardRavageSupport);
+
+			}
+
+		}
+
+		return null;
+
+	}
+
+	public void destroyCardBattlefield(CardPosition cardPosition) {
+
+		Card card = cardPosition.removeCard();
+		card.getImageView().setVisible(false);
+
+	}
+
+	public void selectBattlefieldHedgehogTargets() {
+
+		for (int counter = 0; counter <= 3; counter++) {
+
+			CardPosition cardPosition = Battlefield.INSTANCE.getCardPosition(counter, 4);
+
+			if (!cardPosition.containsCard())
+				continue;
+
+			cardPosition.getCard().setSelected();
+
+		}
+
+	}
+
+	public void transferCardFromHandToDiscardPile(Card card) {
+
+		ListsManager.INSTANCE.hand.getArrayList().remove(card);
+		ListsManager.INSTANCE.discardPile.getArrayList().addFirst(card);
+
+		ListsManager.INSTANCE.hand.relocateImageViews();
+		ListsManager.INSTANCE.discardPile.relocateImageViews();
+
+	}
+
+	public void discardHedgehogCardFromHand() {
+
+		for (Card card : ListsManager.INSTANCE.hand) {
+
+			if (!(card instanceof CardSylvanAnimal))
+				continue;
+
+			CardSylvanAnimal cardSylvanAnimal = (CardSylvanAnimal) card;
+			ECardSylvanAnimal eCardSylvanAnimal = cardSylvanAnimal.getECardSylvanAnimal();
+
+			if (!eCardSylvanAnimal.equals(ECardSylvanAnimal.HEDGEHOG))
+				continue;
+
+			transferCardFromHandToDiscardPile(card);
+			return;
+
+		}
+
+	}
+
+	public boolean handContainsCardSylvanHedgehog() {
+
+		for (Card card : ListsManager.INSTANCE.hand) {
+
+			if (!(card instanceof CardSylvanAnimal))
+				continue;
+
+			CardSylvanAnimal cardSylvanAnimal = (CardSylvanAnimal) card;
+			ECardSylvanAnimal eCardSylvanAnimal = cardSylvanAnimal.getECardSylvanAnimal();
+
+			if (!eCardSylvanAnimal.equals(ECardSylvanAnimal.HEDGEHOG))
+				continue;
+
+			return true;
+
+		}
+
+		return false;
+
+	}
 
 	public void revealRavageCards() {
 
@@ -30,7 +200,7 @@ public enum Model {
 			CardRavage cardRavage = ravageStack.getArrayList().removeFirst();
 			cardRavage.getImageView().flipFront();
 
-			CardPosition cardPosition = ManagerCardPosition.INSTANCE.getCardPosition(counter, 4);
+			CardPosition cardPosition = Battlefield.INSTANCE.getCardPosition(counter, 4);
 			cardPosition.addCardRelocate(cardRavage);
 
 		}
@@ -130,8 +300,7 @@ public enum Model {
 
 		// get card positions
 
-		ArrayList<CardPosition> cardPositions = ManagerCardPosition.INSTANCE
-				.getCardPositionsClone();
+		ArrayList<CardPosition> cardPositions = Battlefield.INSTANCE.getCardPositionsClone();
 
 		// filter in elementals
 
@@ -153,8 +322,8 @@ public enum Model {
 
 				int rowCombat = cardPosition.getRow();
 				int columnCombat = cardPosition.getColumn() - 1;
-				CardPosition cardPositionCombat = ManagerCardPosition.INSTANCE
-						.getCardPosition(rowCombat, columnCombat);
+				CardPosition cardPositionCombat = Battlefield.INSTANCE.getCardPosition(rowCombat,
+						columnCombat);
 				executeMovement(cardElemental, cardPositionCombat);
 
 				// execute damaging trees

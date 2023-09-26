@@ -4,13 +4,13 @@ import model.CardPosition;
 import utils.ArrayList;
 import utils.Vector2;
 
-public enum ManagerCardPosition {
+public enum Battlefield {
 
 	INSTANCE;
 
 	private ArrayList<CardPosition> list = new ArrayList<>();
 
-	private ManagerCardPosition() {
+	private Battlefield() {
 		createCardPositions();
 	}
 

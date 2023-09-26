@@ -12,12 +12,10 @@ import cards.CardSylvanFountain;
 import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import gameStatesDefault.GameState;
+import managers.Battlefield;
 import managers.ListsManager;
-import managers.ManagerCardPosition;
-import managers.RevealRavageCards;
 import model.CardPosition;
 import utils.ArrayList;
-import utils.Flow;
 import utils.ListImageViewAbles;
 import utils.ShutDown;
 
@@ -31,15 +29,30 @@ public class JUnit extends GameState {
 
 		getListsManager().edges.relocateImageViews();
 
-		ManagerCardPosition.values();
+		Battlefield.values();
 
 		addCardsToRavageStacks();
-		addCardsToCardPosition();
+		addCardsToBattlefield();
 		addCardsToDeck();
 		addCardsToHand();
+		addCardsToDiscardPile();
 		damageTrees(1);
 
-		Flow.INSTANCE.executeGameState(RevealRavageCards.class);
+//		getFlow().addLast(RevealRavageCards.class);
+//		getFlow().addLast(PlayHedgehog.class);
+		getFlow().addLast(ResolveCardRavageSupport.class);
+		proceedToNextGameState();
+
+	}
+
+	public void addCardsToDiscardPile() {
+
+		ArrayList<Card> discardPile = getListsManager().discardPile.getArrayList();
+
+		discardPile.addLast(new CardSylvanAnimal(ECardSylvanAnimal.ELEPHANT));
+		discardPile.addLast(new CardSylvanFountain(1));
+
+		getListsManager().discardPile.relocateImageViews();
 
 	}
 
@@ -49,8 +62,11 @@ public class JUnit extends GameState {
 
 		hand.addLast(new CardSylvanFountain(2));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.ELEPHANT));
+		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.HEDGEHOG));
 		hand.addLast(new CardSylvanFountain(1));
 		hand.addLast(new CardSylvanFountain(1));
+		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.OWL));
+		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.HEDGEHOG));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.OWL));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.STAG));
 
@@ -74,23 +90,26 @@ public class JUnit extends GameState {
 
 	}
 
-	public void addCardsToCardPosition() {
+	public void addCardsToBattlefield() {
 
 		addCardsToPosition(0, 0, new CardSylvanFountain(2));
 		addCardsToPosition(0, 1, new CardSylvanFountain(2));
 		addCardsToPosition(0, 2, new CardSylvanFountain(2));
 		addCardsToPosition(0, 3, new CardSylvanFountain(2));
-//		addCardsToPosition(0, 4, new CardElementalBlazing(4));
+		addCardsToPosition(0, 4, new CardElemental(3));
 
 		addCardsToPosition(1, 0, new CardElemental(3));
 		addCardsToPosition(1, 2, new CardSylvanFountain(3));
 		addCardsToPosition(1, 3, new CardElemental(3));
+		addCardsToPosition(1, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
 
 		addCardsToPosition(2, 0, new CardElemental(0));
 		addCardsToPosition(2, 1, new CardSylvanFountain(0));
 		addCardsToPosition(2, 2, new CardElemental(1));
+		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
 
 		addCardsToPosition(3, 0, new CardElemental(2));
+		addCardsToPosition(3, 4, new CardRavageSupport(ECardRavageSupport.SIMOON));
 
 	}
 
@@ -128,7 +147,7 @@ public class JUnit extends GameState {
 
 	public void addCardsToPosition(int row, int column, Card card) {
 
-		for (CardPosition cardPosition : ManagerCardPosition.INSTANCE.getCardPositionsClone()) {
+		for (CardPosition cardPosition : Battlefield.INSTANCE.getCardPositionsClone()) {
 
 			if (row != cardPosition.getRow())
 				continue;

@@ -1,6 +1,7 @@
 package cards;
 
 import managers.Credentials;
+import utils.Flow;
 import utils.ImageView;
 import utils.Interfaces.IImageViewAble;
 import utils.Logger;
@@ -30,6 +31,11 @@ public abstract class Card implements IImageViewAble {
 		Logger.INSTANCE.newLine();
 		Logger.INSTANCE.logNewLine("/*");
 
+	}
+
+	@Override
+	public void handleMousePressedPrimary() {
+		Flow.INSTANCE.getGameStateCurrent().handleCardPressed(this);
 	}
 
 	protected void printCredentials() {

@@ -1,8 +1,11 @@
 package gameStatesDefault;
 
+import cards.Card;
 import enums.EText;
 import javafx.scene.input.KeyCode;
+import managers.Battlefield;
 import managers.ListsManager;
+import model.CardPosition;
 import utils.ArrayList;
 import utils.Flow;
 import utils.KeyCodeHandler;
@@ -64,6 +67,27 @@ public abstract class GameState {
 
 	protected final ListsManager getListsManager() {
 		return ListsManager.INSTANCE;
+	}
+
+	public final void handleCardPressed(Card card) {
+
+		if (ListsManager.INSTANCE.hand.getArrayList().contains(card))
+			handleCardPressedHand(card);
+
+		else
+			for (CardPosition cardPosition : Battlefield.INSTANCE.getCardPositionsClone())
+				if (cardPosition.containsCard())
+					if (cardPosition.getCard().equals(card))
+						handleCardPressedBattlefield(card, cardPosition);
+
+	}
+
+	protected void handleCardPressedHand(Card card) {
+
+	}
+
+	protected void handleCardPressedBattlefield(Card card, CardPosition cardPosition) {
+
 	}
 
 }
