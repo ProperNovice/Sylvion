@@ -2,6 +2,7 @@ package gameStates;
 
 import enums.EText;
 import gameStatesDefault.GameState;
+import managers.Model;
 import utils.SelectImageViewManager;
 
 public abstract class ExecuteCardRavageSupport extends GameState {
@@ -19,6 +20,7 @@ public abstract class ExecuteCardRavageSupport extends GameState {
 
 		SelectImageViewManager.INSTANCE.releaseSelectImageViews();
 
+		Model.INSTANCE.destroyCardRavageSupportResolving();
 		getFlow().addFirst(ResolveCardRavageSupport.class);
 		executeCard().run();
 		proceedToNextGameState();

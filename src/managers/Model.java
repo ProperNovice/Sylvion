@@ -12,12 +12,13 @@ import cards.CardSylvanFountain;
 import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import enums.EResolveOrder;
-import gameStates.DrawCard;
 import gameStates.ExecuteCardRavageSupportBlaze;
+import gameStates.ExecuteCardRavageSupportSimoon;
 import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
 import interfaces.IStrengthAble;
 import model.CardPosition;
+import model.ObjectPoolCardElementalBlazing;
 import utils.ArrayList;
 import utils.Flow;
 import utils.HashMap;
@@ -28,10 +29,11 @@ public enum Model {
 
 	INSTANCE;
 
-	public void executeCardRavageSupportBlaze() {
+	public void executeCardRavageSupportSimoon() {
+		moveElementals();
+	}
 
-		CardPosition cardPositionRavageSupport = getFirstCardRavageSupportToResolveInOrder();
-		cardPositionRavageSupport.removeCard().getImageView().setVisible(false);
+	public void executeCardRavageSupportBlaze() {
 
 		// create upgrade map
 
@@ -43,8 +45,6 @@ public enum Model {
 		hashMap.put(3, 4);
 
 		// get card positions with elementals
-
-		ArrayList<CardPosition> list = new ArrayList<>();
 
 		for (CardPosition cardPosition : Battlefield.INSTANCE.getCardPositionsClone()) {
 
@@ -62,11 +62,24 @@ public enum Model {
 			cardPosition.removeCard();
 
 			CardElemental cardElemental = (CardElemental) card;
-			int strength = cardElemental.getStrength();
-
 			cardElemental.getImageView().setVisible(false);
 
+			int strengthCardElemental = cardElemental.getStrength();
+			int strengthCardBlazing = hashMap.getValue(strengthCardElemental);
+
+			CardElementalBlazing cardElementalBlazing = ObjectPoolCardElementalBlazing.INSTANCE
+					.getCardElementalBlazing(strengthCardBlazing);
+
+			cardPosition.addCardRelocate(cardElementalBlazing);
+
 		}
+
+	}
+
+	public void destroyCardRavageSupportResolving() {
+
+		CardPosition cardPosition = getFirstCardRavageSupportToResolveInOrder();
+		destroyCardBattlefield(cardPosition);
 
 	}
 
@@ -82,6 +95,7 @@ public enum Model {
 		HashMap<ECardRavageSupport, Class<? extends GameState>> hashMap = new HashMap<>();
 
 		hashMap.put(ECardRavageSupport.BLAZE, ExecuteCardRavageSupportBlaze.class);
+		hashMap.put(ECardRavageSupport.SIMOON, ExecuteCardRavageSupportSimoon.class);
 
 		// add game state
 
@@ -300,7 +314,7 @@ public enum Model {
 				ListsManager.INSTANCE.discardPile.relocateImageViews();
 
 				if (cardSylvan instanceof CardSylvanFountain)
-					getFlow().addFirst(DrawCard.class);
+					drawCard();
 
 				if (cardDefenceStrength == cardElementalStrength)
 					cardElemental.getImageView().setVisible(false);

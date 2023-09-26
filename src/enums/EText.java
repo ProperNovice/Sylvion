@@ -18,6 +18,7 @@ public enum EText {
 	PLAY_HEDGEHOG("Play Hedgehog", TextTypeEnum.OPTION),
 	CHOOSE_CARD("Choose card", TextTypeEnum.INDICATOR),
 	RESOLVE_BLAZE("Resolve Blaze", TextTypeEnum.INDICATOR),
+	RESOLVE_SIMOON("Resolve Simoon", TextTypeEnum.INDICATOR),
 
 	;
 
