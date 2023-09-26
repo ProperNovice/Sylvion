@@ -95,7 +95,7 @@ public class JUnit extends GameState {
 		addCardsToPosition(0, 0, new CardSylvanFountain(2));
 		addCardsToPosition(0, 1, new CardSylvanFountain(2));
 		addCardsToPosition(0, 2, new CardSylvanFountain(2));
-		addCardsToPosition(0, 3, new CardElemental(2));
+		addCardsToPosition(0, 3, new CardElemental(1));
 		addCardsToPosition(0, 4, new CardElemental(3));
 
 		addCardsToPosition(1, 2, new CardSylvanFountain(3));

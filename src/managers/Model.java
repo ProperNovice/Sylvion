@@ -12,6 +12,7 @@ import cards.CardSylvanFountain;
 import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import enums.EResolveOrder;
+import gameStates.DrawCard;
 import gameStates.ExecuteCardRavageSupportBlaze;
 import gameStates.ExecuteCardRavageSupportSimoon;
 import gameStatesDefault.EndGameLost;
@@ -314,7 +315,7 @@ public enum Model {
 				ListsManager.INSTANCE.discardPile.relocateImageViews();
 
 				if (cardSylvan instanceof CardSylvanFountain)
-					drawCard();
+					Flow.INSTANCE.getFlow().addFirst(DrawCard.class);
 
 				if (cardDefenceStrength == cardElementalStrength)
 					cardElemental.getImageView().setVisible(false);
