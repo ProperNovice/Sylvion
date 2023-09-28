@@ -1,6 +1,6 @@
 package utils;
 
-import managers.Credentials;
+import business.Credentials;
 import utils.Enums.AnimationSynchEnum;
 import utils.Interfaces.IImageViewAble;
 import utils.Interfaces.IUpdateAble;

@@ -1,5 +1,7 @@
 package gameStates;
 
+import business.Battlefield;
+import business.ListsManager;
 import cards.Card;
 import cards.CardEdge;
 import cards.CardElemental;
@@ -12,8 +14,6 @@ import cards.CardSylvanFountain;
 import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import gameStatesDefault.GameState;
-import managers.Battlefield;
-import managers.ListsManager;
 import model.CardPosition;
 import utils.ArrayList;
 import utils.ListImageViewAbles;
@@ -41,7 +41,33 @@ public class JUnit extends GameState {
 //		getFlow().addLast(RevealRavageCards.class);
 //		getFlow().addLast(PlayHedgehog.class);
 		getFlow().addLast(ResolveCardRavageSupport.class);
+//		getFlow().addLast(Reinforcements.class);
 		proceedToNextGameState();
+
+	}
+
+	public void addCardsToBattlefield() {
+
+		addCardsToPosition(0, 0, new CardSylvanFountain(2));
+		addCardsToPosition(0, 1, new CardSylvanFountain(2));
+		addCardsToPosition(0, 2, new CardSylvanFountain(2));
+		addCardsToPosition(0, 3, new CardElemental(1));
+		addCardsToPosition(0, 4, new CardElemental(3));
+
+		addCardsToPosition(1, 2, new CardSylvanFountain(3));
+		addCardsToPosition(1, 3, new CardElemental(3));
+		addCardsToPosition(1, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
+
+		addCardsToPosition(2, 0, new CardElemental(0));
+		addCardsToPosition(2, 1, new CardRavageSupport(ECardRavageSupport.ACID_LAKE));
+//		addCardsToPosition(2, 1, new CardSylvanFountain(0));
+		addCardsToPosition(2, 2, new CardElemental(1));
+//		addCardsToPosition(2, 3, new CardElemental(1));
+//		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
+		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.STONE_RAIN));
+
+		addCardsToPosition(3, 0, new CardElemental(2));
+		addCardsToPosition(3, 4, new CardRavageSupport(ECardRavageSupport.SIMOON));
 
 	}
 
@@ -82,33 +108,14 @@ public class JUnit extends GameState {
 		deck.addLast(new CardSylvanAnimal(ECardSylvanAnimal.ELEPHANT));
 		deck.addLast(new CardSylvanFountain(1));
 		deck.addLast(new CardSylvanFountain(1));
+		deck.addLast(new CardSylvanAnimal(ECardSylvanAnimal.SQUIRRELS));
+		deck.addLast(new CardSylvanFountain(1));
+		deck.addLast(new CardSylvanAnimal(ECardSylvanAnimal.SQUIRRELS));
 
 		getListsManager().deck.relocateImageViews();
 
 		for (Card card : getListsManager().deck)
 			card.getImageView().flipBack();
-
-	}
-
-	public void addCardsToBattlefield() {
-
-		addCardsToPosition(0, 0, new CardSylvanFountain(2));
-		addCardsToPosition(0, 1, new CardSylvanFountain(2));
-		addCardsToPosition(0, 2, new CardSylvanFountain(2));
-		addCardsToPosition(0, 3, new CardElemental(1));
-		addCardsToPosition(0, 4, new CardElemental(3));
-
-		addCardsToPosition(1, 2, new CardSylvanFountain(3));
-		addCardsToPosition(1, 3, new CardElemental(3));
-		addCardsToPosition(1, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
-
-		addCardsToPosition(2, 0, new CardElemental(0));
-		addCardsToPosition(2, 1, new CardSylvanFountain(0));
-		addCardsToPosition(2, 2, new CardElemental(1));
-		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
-
-		addCardsToPosition(3, 0, new CardElemental(2));
-		addCardsToPosition(3, 4, new CardRavageSupport(ECardRavageSupport.SIMOON));
 
 	}
 
@@ -129,7 +136,7 @@ public class JUnit extends GameState {
 		getListsManager().ravageStacks.getValue(3).getArrayList()
 				.addLast(new CardElementalRavage(1));
 		getListsManager().ravageStacks.getValue(3).getArrayList()
-				.addLast(new CardRavageSupport(ECardRavageSupport.SIMOON));
+				.addLast(new CardRavageSupport(ECardRavageSupport.ACID_LAKE));
 
 		for (int counter = 0; counter <= 3; counter++) {
 

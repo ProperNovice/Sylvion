@@ -1,6 +1,6 @@
 package utils;
 
-import managers.Credentials;
+import business.Credentials;
 import utils.Enums.RearrangeTypeEnum;
 import utils.Enums.RelocateTypeEnum;
 import utils.Interfaces.IImageViewAble;

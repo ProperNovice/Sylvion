@@ -1,6 +1,6 @@
 package listCredentials;
 
-import managers.Credentials;
+import business.Credentials;
 import utils.Enums.LayerZListEnum;
 import utils.Enums.RearrangeTypeEnum;
 import utils.Enums.RelocateTypeEnum;

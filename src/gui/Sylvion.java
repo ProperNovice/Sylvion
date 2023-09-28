@@ -1,5 +1,8 @@
 package gui;
 
+import business.Credentials;
+import business.InstantiateComponents;
+import business.ListsManager;
 import gameStates.JUnit;
 import gameStatesDefault.RestartGame;
 import javafx.application.Application;
@@ -10,9 +13,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import managers.Credentials;
-import managers.InstantiateComponents;
-import managers.ListsManager;
 import utils.Animation;
 import utils.Flow;
 import utils.Logger;

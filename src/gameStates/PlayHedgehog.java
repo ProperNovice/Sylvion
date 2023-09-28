@@ -1,8 +1,8 @@
 package gameStates;
 
+import business.Model;
 import enums.EText;
 import gameStatesDefault.GameState;
-import managers.Model;
 import utils.Logger;
 
 public class PlayHedgehog extends GameState {

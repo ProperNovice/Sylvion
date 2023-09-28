@@ -1,4 +1,4 @@
-package managers;
+package business;
 
 public enum InstantiateComponents {
 

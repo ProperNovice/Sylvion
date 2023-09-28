@@ -1,6 +1,6 @@
 package utils;
 
-import managers.ListsManager;
+import business.ListsManager;
 import utils.Interfaces.IImageViewAble;
 
 public enum ListDuplicateProtection {

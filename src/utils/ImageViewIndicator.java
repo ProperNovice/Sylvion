@@ -1,6 +1,6 @@
 package utils;
 
-import managers.Credentials;
+import business.Credentials;
 import utils.Enums.MapImageViews;
 import utils.Interfaces.IImageViewAble;
 

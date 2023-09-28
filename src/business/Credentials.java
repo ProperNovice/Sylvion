@@ -1,4 +1,4 @@
-package managers;
+package business;
 
 import utils.Enums.RearrangeTypeEnum;
 import utils.Vector2;

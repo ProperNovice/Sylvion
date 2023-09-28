@@ -1,7 +1,7 @@
 package gameStates;
 
+import business.Model;
 import enums.EText;
-import managers.Model;
 
 public class ExecuteCardRavageSupportSimoon extends ExecuteCardRavageSupport {
 

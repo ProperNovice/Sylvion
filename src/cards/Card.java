@@ -1,6 +1,6 @@
 package cards;
 
-import managers.Credentials;
+import business.Credentials;
 import utils.Flow;
 import utils.ImageView;
 import utils.Interfaces.IImageViewAble;

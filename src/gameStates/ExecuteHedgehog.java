@@ -1,9 +1,9 @@
 package gameStates;
 
+import business.Model;
 import cards.Card;
 import enums.EText;
 import gameStatesDefault.GameState;
-import managers.Model;
 import model.CardPosition;
 import utils.SelectImageViewManager;
 

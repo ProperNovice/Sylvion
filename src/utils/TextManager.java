@@ -1,7 +1,7 @@
 package utils;
 
+import business.Credentials;
 import enums.EText;
-import managers.Credentials;
 import utils.Enums.RearrangeTypeEnum;
 import utils.Enums.TextTypeEnum;
 

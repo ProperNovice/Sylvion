@@ -1,6 +1,6 @@
 package listCredentials;
 
-import managers.Credentials;
+import business.Credentials;
 import utils.Enums.RelocateTypeEnum;
 
 public class Edges extends ListCredentials {

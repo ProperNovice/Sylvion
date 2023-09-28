@@ -4,12 +4,12 @@ import business.Model;
 import enums.EText;
 import gameStatesDefault.GameState;
 
-public class MoveElementals extends GameState {
+public class Reinforcements extends GameState {
 
 	@Override
 	public void execute() {
 
-		EText.MOVE_ELEMENTALS.show();
+		EText.REINFORCEMENTS.show();
 		EText.CONTINUE.show();
 
 	}
@@ -17,7 +17,7 @@ public class MoveElementals extends GameState {
 	@Override
 	protected void executeTextOption(EText eText) {
 
-		Model.INSTANCE.moveElementals();
+		Model.INSTANCE.reinforcements();
 		proceedToNextGameState();
 
 	}

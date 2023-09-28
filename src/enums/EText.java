@@ -19,6 +19,9 @@ public enum EText {
 	CHOOSE_CARD("Choose card", TextTypeEnum.INDICATOR),
 	RESOLVE_BLAZE("Resolve Blaze", TextTypeEnum.INDICATOR),
 	RESOLVE_SIMOON("Resolve Simoon", TextTypeEnum.INDICATOR),
+	RESOLVE_ACID_LAKE("Resolve Acid Lake", TextTypeEnum.INDICATOR),
+	RESOLVE_STONE_RAIN("Resolve Stone Rain", TextTypeEnum.INDICATOR),
+	REINFORCEMENTS("Reinforcements", TextTypeEnum.INDICATOR),
 
 	;
 

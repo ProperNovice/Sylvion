@@ -1,7 +1,7 @@
 package utils;
 
+import business.Credentials;
 import enums.EText;
-import managers.Credentials;
 
 public class TextEnum {
 

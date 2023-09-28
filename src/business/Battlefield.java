@@ -1,4 +1,4 @@
-package managers;
+package business;
 
 import model.CardPosition;
 import utils.ArrayList;

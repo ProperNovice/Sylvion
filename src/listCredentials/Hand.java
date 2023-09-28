@@ -1,6 +1,6 @@
 package listCredentials;
 
-import managers.Credentials;
+import business.Credentials;
 
 public class Hand extends ListCredentials {
 

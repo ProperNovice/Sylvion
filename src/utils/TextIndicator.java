@@ -1,8 +1,8 @@
 package utils;
 
+import business.Credentials;
 import gui.InstancesGui;
 import javafx.scene.text.Font;
-import managers.Credentials;
 import utils.Interfaces.INode;
 
 public class TextIndicator implements INode {

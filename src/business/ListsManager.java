@@ -1,4 +1,4 @@
-package managers;
+package business;
 
 import cards.Card;
 import cards.CardEdge;

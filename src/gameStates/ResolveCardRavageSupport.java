@@ -1,7 +1,7 @@
 package gameStates;
 
+import business.Model;
 import gameStatesDefault.GameState;
-import managers.Model;
 
 public class ResolveCardRavageSupport extends GameState {
 

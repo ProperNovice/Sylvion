@@ -1,4 +1,4 @@
-package managers;
+package business;
 
 import cards.Card;
 import cards.CardEdge;
@@ -13,8 +13,10 @@ import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import enums.EResolveOrder;
 import gameStates.DrawCard;
+import gameStates.ExecuteCardRavageSupportAcidLake;
 import gameStates.ExecuteCardRavageSupportBlaze;
 import gameStates.ExecuteCardRavageSupportSimoon;
+import gameStates.ExecuteCardRavageSupportStoneRain;
 import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
 import interfaces.IStrengthAble;
@@ -30,11 +32,55 @@ public enum Model {
 
 	INSTANCE;
 
+	public void reinforcements() {
+
+		for (int counter = 1; counter <= 3; counter++)
+			Flow.INSTANCE.getFlow().addFirst(DrawCard.class);
+
+	}
+
+	public void executeCardRavageSupportStoneRain() {
+
+		CardPosition cardPosition = getFirstCardRavageSupportToResolveInOrder();
+		destroyCardRavageSupportResolving();
+		
+		
+
+	}
+
+	public void executeCardRavageSupportAcidLake() {
+
+		CardPosition cardPositionAcidLake = getFirstCardRavageSupportToResolveInOrder();
+		Card cardRavageAcidLake = cardPositionAcidLake.removeCard();
+		int row = cardPositionAcidLake.getRow();
+
+		for (int column = 0; column <= 3; column++) {
+
+			CardPosition cardPosition = Battlefield.INSTANCE.getCardPosition(row, column);
+
+			if (cardPosition.containsCard())
+				continue;
+
+			cardPosition.addCardRelocate(cardRavageAcidLake);
+
+			return;
+
+		}
+
+		cardRavageAcidLake.getImageView().setVisible(false);
+
+	}
+
 	public void executeCardRavageSupportSimoon() {
+
+		destroyCardRavageSupportResolving();
 		moveElementals();
+
 	}
 
 	public void executeCardRavageSupportBlaze() {
+
+		destroyCardRavageSupportResolving();
 
 		// create upgrade map
 
@@ -97,6 +143,8 @@ public enum Model {
 
 		hashMap.put(ECardRavageSupport.BLAZE, ExecuteCardRavageSupportBlaze.class);
 		hashMap.put(ECardRavageSupport.SIMOON, ExecuteCardRavageSupportSimoon.class);
+		hashMap.put(ECardRavageSupport.ACID_LAKE, ExecuteCardRavageSupportAcidLake.class);
+		hashMap.put(ECardRavageSupport.STONE_RAIN, ExecuteCardRavageSupportStoneRain.class);
 
 		// add game state
 
@@ -325,6 +373,27 @@ public enum Model {
 			}
 
 			return;
+
+		} else {
+
+			CardRavageSupport cardRavageSupport = (CardRavageSupport) card;
+
+			if (cardRavageSupport.getECardRavageSupport().equals(ECardRavageSupport.ACID_LAKE)) {
+
+				int column = cardPosition.getColumn();
+
+				if (column == 0)
+					damageTrees(cardElemental);
+
+				else {
+
+					int row = cardPosition.getRow();
+					cardPosition = Battlefield.INSTANCE.getCardPosition(row, column - 1);
+					executeMovement(cardElemental, cardPosition);
+
+				}
+
+			}
 
 		}
 

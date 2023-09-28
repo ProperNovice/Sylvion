@@ -3,8 +3,8 @@ package utils;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
+import business.ListsManager;
 import listCredentials.ListCredentials;
-import managers.ListsManager;
 import utils.Enums.AnimationSynchEnum;
 import utils.Enums.ImageViewActionEnum;
 import utils.Enums.RearrangeTypeEnum;
