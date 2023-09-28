@@ -67,7 +67,8 @@ public class JUnit extends GameState {
 //		addCardsToPosition(2, 1, new CardRavageSupport(ECardRavageSupport.ACID_LAKE));
 //		addCardsToPosition(2, 1, new CardSylvanFountain(0));
 //		addCardsToPosition(2, 2, new CardSylvanFountain(2));
-		addCardsToPosition(2, 2, new CardElemental(1));
+//		addCardsToPosition(2, 2, new CardElemental(1));
+		addCardsToPosition(2, 2, new CardElementalBlazing(4));
 //		addCardsToPosition(2, 3, new CardSylvanTree(0));
 //		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
 //		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.TEMPORAL_TORNADO));
