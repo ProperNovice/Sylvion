@@ -40,7 +40,9 @@ public class JUnit extends GameState {
 
 //		getFlow().addLast(RevealRavageCards.class);
 //		getFlow().addLast(PlayHedgehog.class);
-		getFlow().addLast(ResolveCardRavageSupport.class);
+//		getFlow().addLast(ResolveCardRavageSupport.class);
+		getFlow().addLast(MoveElementals.class);
+//		getFlow().addLast(ReturnTwoCardsFromHandToTopOfTheDeck.class);
 //		getFlow().addLast(Reinforcements.class);
 		proceedToNextGameState();
 
@@ -52,19 +54,24 @@ public class JUnit extends GameState {
 		addCardsToPosition(0, 1, new CardSylvanFountain(2));
 		addCardsToPosition(0, 2, new CardSylvanFountain(2));
 		addCardsToPosition(0, 3, new CardElemental(1));
-		addCardsToPosition(0, 4, new CardElemental(3));
+//		addCardsToPosition(0, 4, new CardElemental(3));
+		addCardsToPosition(0, 4, new CardRavageSupport(ECardRavageSupport.GEYSER));
 
 		addCardsToPosition(1, 2, new CardSylvanFountain(3));
 		addCardsToPosition(1, 3, new CardElemental(3));
 		addCardsToPosition(1, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
 
-		addCardsToPosition(2, 0, new CardElemental(0));
-		addCardsToPosition(2, 1, new CardRavageSupport(ECardRavageSupport.ACID_LAKE));
+//		addCardsToPosition(2, 0, new CardElemental(0));
+		addCardsToPosition(2, 0, new CardRavageSupport(ECardRavageSupport.ACID_LAKE));
+		addCardsToPosition(2, 1, new CardRavageSupport(ECardRavageSupport.GEYSER));
+//		addCardsToPosition(2, 1, new CardRavageSupport(ECardRavageSupport.ACID_LAKE));
 //		addCardsToPosition(2, 1, new CardSylvanFountain(0));
+//		addCardsToPosition(2, 2, new CardSylvanFountain(2));
 		addCardsToPosition(2, 2, new CardElemental(1));
-//		addCardsToPosition(2, 3, new CardElemental(1));
+//		addCardsToPosition(2, 3, new CardSylvanTree(0));
 //		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.BLAZE));
-		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.STONE_RAIN));
+//		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.TEMPORAL_TORNADO));
+		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.GEYSER));
 
 		addCardsToPosition(3, 0, new CardElemental(2));
 		addCardsToPosition(3, 4, new CardRavageSupport(ECardRavageSupport.SIMOON));

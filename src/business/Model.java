@@ -9,14 +9,18 @@ import cards.CardRavageSupport;
 import cards.CardSylvan;
 import cards.CardSylvanAnimal;
 import cards.CardSylvanFountain;
+import cards.CardSylvanTree;
 import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import enums.EResolveOrder;
 import gameStates.DrawCard;
 import gameStates.ExecuteCardRavageSupportAcidLake;
 import gameStates.ExecuteCardRavageSupportBlaze;
+import gameStates.ExecuteCardRavageSupportGeyser;
 import gameStates.ExecuteCardRavageSupportSimoon;
 import gameStates.ExecuteCardRavageSupportStoneRain;
+import gameStates.ExecuteCardRavageSupportTemporalTornado;
+import gameStates.ReturnTwoCardsFromHandToTopOfTheDeck;
 import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
 import interfaces.IStrengthAble;
@@ -39,35 +43,88 @@ public enum Model {
 
 	}
 
-	public void executeCardRavageSupportStoneRain() {
+	public void executeCardRavageSupportGeyser() {
 
 		CardPosition cardPosition = getFirstCardRavageSupportToResolveInOrder();
-		destroyCardRavageSupportResolving();
-		
-		
+		Card card = cardPosition.removeCard();
+
+		addCardInBattlefieldFurthestAway(card, cardPosition);
 
 	}
 
-	public void executeCardRavageSupportAcidLake() {
+	public void executeCardRavageSupportTemporalTornado() {
 
-		CardPosition cardPositionAcidLake = getFirstCardRavageSupportToResolveInOrder();
-		Card cardRavageAcidLake = cardPositionAcidLake.removeCard();
-		int row = cardPositionAcidLake.getRow();
+		CardPosition cardPositionRavageSupport = getFirstCardRavageSupportToResolveInOrder();
+		destroyCardRavageSupportResolving();
+
+		ArrayList<Card> list = new ArrayList<>();
+
+		int row = cardPositionRavageSupport.getRow();
 
 		for (int column = 0; column <= 3; column++) {
 
 			CardPosition cardPosition = Battlefield.INSTANCE.getCardPosition(row, column);
 
-			if (cardPosition.containsCard())
+			if (!cardPosition.containsCard())
 				continue;
 
-			cardPosition.addCardRelocate(cardRavageAcidLake);
+			Card card = cardPosition.getCard();
+
+			if (!(card instanceof CardSylvanFountain) && !(card instanceof CardSylvanTree))
+				continue;
+
+			list.addLast(cardPosition.removeCard());
+
+		}
+
+		if (!list.isEmpty()) {
+
+			ListsManager.INSTANCE.hand.getArrayList().addAllLast(list);
+			ListsManager.INSTANCE.hand.relocateImageViews();
+
+		} else
+			Flow.INSTANCE.getFlow().addFirst(ReturnTwoCardsFromHandToTopOfTheDeck.class);
+
+	}
+
+	public void executeCardRavageSupportStoneRain() {
+
+		CardPosition cardPositionRavageSupport = getFirstCardRavageSupportToResolveInOrder();
+		destroyCardRavageSupportResolving();
+
+		int row = cardPositionRavageSupport.getRow();
+
+		for (int column = 3; column >= 0; column--) {
+
+			CardPosition cardPosition = Battlefield.INSTANCE.getCardPosition(row, column);
+
+			if (!cardPosition.containsCard())
+				continue;
+
+			Card card = cardPosition.getCard();
+
+			if (!(card instanceof CardSylvanFountain) && !(card instanceof CardSylvanTree))
+				continue;
+
+			ListsManager.INSTANCE.discardPile.getArrayList().addFirst(card);
+			ListsManager.INSTANCE.discardPile.relocateImageViews();
+
+			Flow.INSTANCE.getFlow().addFirst(DrawCard.class);
 
 			return;
 
 		}
 
-		cardRavageAcidLake.getImageView().setVisible(false);
+		damageTrees(1);
+
+	}
+
+	public void executeCardRavageSupportAcidLake() {
+
+		CardPosition cardPosition = getFirstCardRavageSupportToResolveInOrder();
+		Card card = cardPosition.removeCard();
+
+		addCardInBattlefieldFurthestAway(card, cardPosition);
 
 	}
 
@@ -145,6 +202,9 @@ public enum Model {
 		hashMap.put(ECardRavageSupport.SIMOON, ExecuteCardRavageSupportSimoon.class);
 		hashMap.put(ECardRavageSupport.ACID_LAKE, ExecuteCardRavageSupportAcidLake.class);
 		hashMap.put(ECardRavageSupport.STONE_RAIN, ExecuteCardRavageSupportStoneRain.class);
+		hashMap.put(ECardRavageSupport.TEMPORAL_TORNADO,
+				ExecuteCardRavageSupportTemporalTornado.class);
+		hashMap.put(ECardRavageSupport.GEYSER, ExecuteCardRavageSupportGeyser.class);
 
 		// add game state
 
@@ -231,6 +291,18 @@ public enum Model {
 
 	}
 
+	public void transferCardFromHandToTopOfTheDeck(Card card) {
+
+		ListsManager.INSTANCE.hand.getArrayList().remove(card);
+		ListsManager.INSTANCE.deck.getArrayList().addFirst(card);
+
+		ListsManager.INSTANCE.hand.relocateImageViews();
+		ListsManager.INSTANCE.deck.relocateImageViews();
+
+		card.getImageView().flipBack();
+
+	}
+
 	public void discardHedgehogCardFromHand() {
 
 		for (Card card : ListsManager.INSTANCE.hand) {
@@ -299,13 +371,9 @@ public enum Model {
 
 	}
 
-	private void damageTrees(CardElemental cardElemental) {
+	private void damageTrees(int strength) {
 
 		Logger.INSTANCE.log("damaging trees");
-
-		cardElemental.getImageView().setVisible(false);
-
-		int strength = cardElemental.getStrength();
 
 		Logger.INSTANCE.logNewLine(strength);
 
@@ -382,16 +450,24 @@ public enum Model {
 
 				int column = cardPosition.getColumn();
 
-				if (column == 0)
-					damageTrees(cardElemental);
+				if (column == 0) {
 
-				else {
+					cardElemental.getImageView().setVisible(false);
+					damageTrees(cardElemental.getStrength());
+
+				} else {
 
 					int row = cardPosition.getRow();
 					cardPosition = Battlefield.INSTANCE.getCardPosition(row, column - 1);
 					executeMovement(cardElemental, cardPosition);
 
 				}
+
+			} else if (cardRavageSupport.getECardRavageSupport()
+					.equals(ECardRavageSupport.GEYSER)) {
+
+				cardPosition.removeCard().getImageView().setVisible(false);
+				cardElemental.getImageView().setVisible(false);
 
 			}
 
@@ -431,10 +507,35 @@ public enum Model {
 
 				// execute damaging trees
 
-			} else if (cardPosition.getColumn() == 0)
-				damageTrees(cardElemental);
+			} else if (cardPosition.getColumn() == 0) {
+
+				cardElemental.getImageView().setVisible(false);
+				damageTrees(cardElemental.getStrength());
+
+			}
 
 		}
+
+	}
+
+	private void addCardInBattlefieldFurthestAway(Card card, CardPosition cardPosition) {
+
+		int row = cardPosition.getRow();
+
+		for (int column = 0; column <= 3; column++) {
+
+			CardPosition cardPositionTemp = Battlefield.INSTANCE.getCardPosition(row, column);
+
+			if (cardPositionTemp.containsCard())
+				continue;
+
+			cardPositionTemp.addCardRelocate(card);
+
+			return;
+
+		}
+
+		card.getImageView().setVisible(false);
 
 	}
 

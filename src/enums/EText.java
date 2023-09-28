@@ -21,6 +21,8 @@ public enum EText {
 	RESOLVE_SIMOON("Resolve Simoon", TextTypeEnum.INDICATOR),
 	RESOLVE_ACID_LAKE("Resolve Acid Lake", TextTypeEnum.INDICATOR),
 	RESOLVE_STONE_RAIN("Resolve Stone Rain", TextTypeEnum.INDICATOR),
+	RESOLVE_TEMPORAL_TORNADO("Resolve Temporal Tornado", TextTypeEnum.INDICATOR),
+	RESOLVE_GEYSER("Resolve Geyser", TextTypeEnum.INDICATOR),
 	REINFORCEMENTS("Reinforcements", TextTypeEnum.INDICATOR),
 
 	;
