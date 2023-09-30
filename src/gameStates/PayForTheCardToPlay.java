@@ -1,9 +1,13 @@
 package gameStates;
 
 import business.Model;
+import cards.Card;
+import enums.EText;
 import gameStatesDefault.GameState;
 import interfaces.ICostAble;
+import utils.Interfaces.IImageViewAble;
 import utils.Logger;
+import utils.SelectImageViewManager;
 
 public class PayForTheCardToPlay extends GameState {
 
@@ -18,8 +22,60 @@ public class PayForTheCardToPlay extends GameState {
 		logEnergy("before");
 		adjustCostWithEnergy();
 		logEnergy("after");
-
 		Logger.INSTANCE.newLine();
+
+		if (this.costRemainingToBePaid > 0) {
+
+			handleEText();
+			return;
+
+		}
+
+		Model.INSTANCE.resolveCardToPlay();
+		proceedToNextGameState();
+
+	}
+
+	@Override
+	protected void executeTextOption(EText eText) {
+
+		for (IImageViewAble imageViewAble : SelectImageViewManager.INSTANCE
+				.getSelectedImageViewAbles()) {
+
+			Card card = (Card) imageViewAble;
+			Model.INSTANCE.transferCardFromHandToDiscardPile(card);
+
+		}
+
+		SelectImageViewManager.INSTANCE.releaseSelectImageViews();
+
+		Model.INSTANCE.resolveCardToPlay();
+		proceedToNextGameState();
+
+	}
+
+	@Override
+	protected void handleCardPressedHand(Card card) {
+
+		if (card.equals(Model.INSTANCE.cardToPlay))
+			return;
+
+		card.reverseSelectImageView();
+		handleEText();
+
+	}
+
+	private void handleEText() {
+
+		concealText();
+
+		EText.CHOOSE_CARDS.show();
+
+		if (this.costRemainingToBePaid == SelectImageViewManager.INSTANCE
+				.getSelectedImageViewAbles().size())
+			EText.CONTINUE.show();
+		else
+			EText.VOID.show();
 
 	}
 

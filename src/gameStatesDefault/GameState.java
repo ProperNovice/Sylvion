@@ -61,6 +61,10 @@ public abstract class GameState {
 		Flow.INSTANCE.proceed();
 	}
 
+	protected final void executeGameState(Class<? extends GameState> gameState) {
+		Flow.INSTANCE.executeGameState(gameState);
+	}
+
 	protected final void concealText() {
 		TextManager.INSTANCE.concealText();
 	}

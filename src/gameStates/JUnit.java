@@ -39,7 +39,7 @@ public class JUnit extends GameState {
 		addCardsToHand();
 		addCardsToDiscardPile();
 		damageTrees(1);
-		addEnergy(2);
+		addEnergy(1);
 
 //		getFlow().addLast(RevealRavageCards.class);
 //		getFlow().addLast(PlayHedgehog.class);

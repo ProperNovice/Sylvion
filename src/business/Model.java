@@ -33,6 +33,7 @@ import utils.HashMap;
 import utils.ListImageViewAbles;
 import utils.Logger;
 import utils.SelectImageViewManager;
+import utils.ShutDown;
 
 public enum Model {
 
@@ -40,7 +41,45 @@ public enum Model {
 
 	public Card cardToPlay = null;
 
-	public void resolveCardToPlay(Card card) {
+	public void resolveCardToPlay() {
+
+		// handle card animal
+
+		if (this.cardToPlay instanceof CardSylvanAnimal) {
+
+			CardSylvanAnimal cardSylvanAnimal = (CardSylvanAnimal) this.cardToPlay;
+			ECardSylvanAnimal eCardSylvanAnimal = cardSylvanAnimal.getECardSylvanAnimal();
+
+			switch (eCardSylvanAnimal) {
+
+			case DOVES:
+				break;
+
+			case ELEPHANT:
+				break;
+
+			case FISH:
+				break;
+
+			case OWL:
+				break;
+
+			case SQUIRRELS:
+				break;
+
+			case STAG:
+				break;
+
+			case WHALE:
+				break;
+
+			default:
+				ShutDown.INSTANCE.execute();
+				break;
+
+			}
+
+		}
 
 	}
 
@@ -54,6 +93,16 @@ public enum Model {
 
 			if (!(card instanceof ICostAble))
 				continue;
+
+			if (card instanceof CardSylvanAnimal) {
+
+				CardSylvanAnimal cardSylvanAnimal = (CardSylvanAnimal) card;
+				ECardSylvanAnimal eCardSylvanAnimal = cardSylvanAnimal.getECardSylvanAnimal();
+
+				if (eCardSylvanAnimal.equals(ECardSylvanAnimal.HEDGEHOG))
+					continue;
+
+			}
 
 			ICostAble iCostAble = (ICostAble) card;
 			int cardCost = iCostAble.getCost();
