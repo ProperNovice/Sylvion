@@ -6,8 +6,10 @@ import cards.CardRavage;
 import listCredentials.Deck;
 import listCredentials.DiscardPile;
 import listCredentials.Edges;
+import listCredentials.Energy;
 import listCredentials.Hand;
 import listCredentials.RavageStack;
+import model.EnergyImageView;
 import utils.ArrayList;
 import utils.HashMap;
 import utils.Interfaces.IImageViewAble;
@@ -20,6 +22,7 @@ public enum ListsManager {
 	public final ArrayList<ListImageViewAbles<IImageViewAble>> lists = new ArrayList<ListImageViewAbles<IImageViewAble>>();
 	public ListImageViewAbles<Card> deck, discardPile, hand;
 	public ListImageViewAbles<CardEdge> edges;
+	public ListImageViewAbles<EnergyImageView> energy;
 	public HashMap<Integer, ListImageViewAbles<CardRavage>> ravageStacks = new HashMap<>();
 
 	public void instantiate() {
@@ -28,6 +31,7 @@ public enum ListsManager {
 		this.discardPile = new ListImageViewAbles<>(DiscardPile.class);
 		this.hand = new ListImageViewAbles<>(Hand.class);
 		this.edges = new ListImageViewAbles<>(Edges.class);
+		this.energy = new ListImageViewAbles<>(Energy.class);
 
 		// ravage stacks
 

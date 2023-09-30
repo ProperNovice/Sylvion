@@ -15,8 +15,10 @@ import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import gameStatesDefault.GameState;
 import model.CardPosition;
+import model.EnergyImageView;
 import utils.ArrayList;
 import utils.ListImageViewAbles;
+import utils.ObjectPool;
 import utils.ShutDown;
 
 public class JUnit extends GameState {
@@ -37,11 +39,13 @@ public class JUnit extends GameState {
 		addCardsToHand();
 		addCardsToDiscardPile();
 		damageTrees(1);
+		addEnergy(2);
 
 //		getFlow().addLast(RevealRavageCards.class);
 //		getFlow().addLast(PlayHedgehog.class);
 //		getFlow().addLast(ResolveCardRavageSupport.class);
-		getFlow().addLast(MoveElementals.class);
+//		getFlow().addLast(MoveElementals.class);
+		getFlow().addLast(Defence.class);
 //		getFlow().addLast(ReturnTwoCardsFromHandToTopOfTheDeck.class);
 //		getFlow().addLast(Reinforcements.class);
 		proceedToNextGameState();
@@ -94,11 +98,11 @@ public class JUnit extends GameState {
 
 		ArrayList<Card> hand = getListsManager().hand.getArrayList();
 
-		hand.addLast(new CardSylvanFountain(2));
+		hand.addLast(new CardSylvanFountain(3));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.ELEPHANT));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.HEDGEHOG));
 		hand.addLast(new CardSylvanFountain(1));
-		hand.addLast(new CardSylvanFountain(1));
+		hand.addLast(new CardSylvanFountain(2));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.OWL));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.HEDGEHOG));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.OWL));
@@ -193,6 +197,16 @@ public class JUnit extends GameState {
 			strength--;
 
 		}
+
+	}
+
+	public void addEnergy(int value) {
+
+		for (int counter = 1; counter <= value; counter++)
+			getListsManager().energy.getArrayList()
+					.addLast(ObjectPool.INSTANCE.acquire(EnergyImageView.class));
+
+		getListsManager().energy.relocateImageViews();
 
 	}
 

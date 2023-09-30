@@ -23,6 +23,7 @@ import gameStates.ExecuteCardRavageSupportTemporalTornado;
 import gameStates.ReturnTwoCardsFromHandToTopOfTheDeck;
 import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
+import interfaces.ICostAble;
 import interfaces.IStrengthAble;
 import model.CardPosition;
 import model.ObjectPoolCardElementalBlazing;
@@ -31,10 +32,43 @@ import utils.Flow;
 import utils.HashMap;
 import utils.ListImageViewAbles;
 import utils.Logger;
+import utils.SelectImageViewManager;
 
 public enum Model {
 
 	INSTANCE;
+
+	public Card cardToPlay = null;
+
+	public void resolveCardToPlay(Card card) {
+
+	}
+
+	public void defenceSelectPlayableCards() {
+
+		int energyAvailableToSpend = 0;
+		energyAvailableToSpend += ListsManager.INSTANCE.energy.getArrayList().size();
+		energyAvailableToSpend += ListsManager.INSTANCE.hand.getArrayList().size() - 1;
+
+		for (Card card : ListsManager.INSTANCE.hand) {
+
+			if (!(card instanceof ICostAble))
+				continue;
+
+			ICostAble iCostAble = (ICostAble) card;
+			int cardCost = iCostAble.getCost();
+
+			if (cardCost > energyAvailableToSpend)
+				continue;
+
+			SelectImageViewManager.INSTANCE.addSelectImageViewAble(card);
+
+		}
+
+		Logger.INSTANCE.logNewLine("playable cards -> "
+				+ SelectImageViewManager.INSTANCE.getSelectedImageViewAbles().size());
+
+	}
 
 	public void reinforcements() {
 
