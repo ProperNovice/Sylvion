@@ -9,7 +9,7 @@ public abstract class ExecuteCardRavageSupport extends GameState {
 	@Override
 	public final void execute() {
 
-		getETextToShow().show();
+		EText.RESOLVE.showAdditionally(getAdditionalTextToShow());
 		EText.CONTINUE.show();
 
 	}
@@ -25,7 +25,7 @@ public abstract class ExecuteCardRavageSupport extends GameState {
 
 	}
 
-	protected abstract EText getETextToShow();
+	protected abstract String getAdditionalTextToShow();
 
 	protected abstract Runnable executeCard();
 

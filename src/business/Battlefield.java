@@ -1,6 +1,5 @@
 package business;
 
-import model.CardPosition;
 import utils.ArrayList;
 import utils.Vector2;
 

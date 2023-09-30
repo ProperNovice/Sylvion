@@ -1,10 +1,10 @@
 package gameStates;
 
+import business.CardPosition;
 import business.Model;
 import cards.Card;
 import enums.EText;
 import gameStatesDefault.GameState;
-import model.CardPosition;
 import utils.SelectImageViewManager;
 
 public class ExecuteHedgehog extends GameState {

@@ -1,13 +1,12 @@
 package gameStates;
 
 import business.Model;
-import enums.EText;
 
 public class ExecuteCardRavageSupportStoneRain extends ExecuteCardRavageSupport {
 
 	@Override
-	protected EText getETextToShow() {
-		return EText.RESOLVE_STONE_RAIN;
+	protected String getAdditionalTextToShow() {
+		return "Stone Rain";
 	}
 
 	@Override

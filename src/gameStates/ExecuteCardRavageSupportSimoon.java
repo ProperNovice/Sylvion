@@ -1,13 +1,12 @@
 package gameStates;
 
 import business.Model;
-import enums.EText;
 
 public class ExecuteCardRavageSupportSimoon extends ExecuteCardRavageSupport {
 
 	@Override
-	protected EText getETextToShow() {
-		return EText.RESOLVE_SIMOON;
+	protected String getAdditionalTextToShow() {
+		return "Simoon";
 	}
 
 	@Override

@@ -1,11 +1,11 @@
 package gameStatesDefault;
 
 import business.Battlefield;
+import business.CardPosition;
 import business.ListsManager;
 import cards.Card;
 import enums.EText;
 import javafx.scene.input.KeyCode;
-import model.CardPosition;
 import utils.ArrayList;
 import utils.Flow;
 import utils.KeyCodeHandler;

@@ -1,6 +1,8 @@
 package gameStates;
 
 import business.Battlefield;
+import business.CardPosition;
+import business.EnergyImageView;
 import business.ListsManager;
 import cards.Card;
 import cards.CardEdge;
@@ -14,8 +16,6 @@ import cards.CardSylvanFountain;
 import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import gameStatesDefault.GameState;
-import model.CardPosition;
-import model.EnergyImageView;
 import utils.ArrayList;
 import utils.ListImageViewAbles;
 import utils.ObjectPool;
@@ -46,6 +46,7 @@ public class JUnit extends GameState {
 //		getFlow().addLast(ResolveCardRavageSupport.class);
 //		getFlow().addLast(MoveElementals.class);
 		getFlow().addLast(Defence.class);
+//		getFlow().addLast(ExecuteCardRavageSupportBlaze.class);
 //		getFlow().addLast(ReturnTwoCardsFromHandToTopOfTheDeck.class);
 //		getFlow().addLast(Reinforcements.class);
 		proceedToNextGameState();

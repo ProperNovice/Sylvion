@@ -25,8 +25,6 @@ import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
 import interfaces.ICostAble;
 import interfaces.IStrengthAble;
-import model.CardPosition;
-import model.ObjectPoolCardElementalBlazing;
 import utils.ArrayList;
 import utils.Flow;
 import utils.HashMap;

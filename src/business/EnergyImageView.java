@@ -1,4 +1,4 @@
-package model;
+package business;
 
 import utils.ImageView;
 import utils.Interfaces.IImageViewAble;

@@ -18,12 +18,7 @@ public enum EText {
 	PLAY_HEDGEHOG("Play Hedgehog", TextTypeEnum.OPTION),
 	CHOOSE_CARD("Choose card", TextTypeEnum.INDICATOR),
 	CHOOSE_CARDS("Choose cards", TextTypeEnum.INDICATOR),
-	RESOLVE_BLAZE("Resolve Blaze", TextTypeEnum.INDICATOR),
-	RESOLVE_SIMOON("Resolve Simoon", TextTypeEnum.INDICATOR),
-	RESOLVE_ACID_LAKE("Resolve Acid Lake", TextTypeEnum.INDICATOR),
-	RESOLVE_STONE_RAIN("Resolve Stone Rain", TextTypeEnum.INDICATOR),
-	RESOLVE_TEMPORAL_TORNADO("Resolve Temporal Tornado", TextTypeEnum.INDICATOR),
-	RESOLVE_GEYSER("Resolve Geyser", TextTypeEnum.INDICATOR),
+	RESOLVE("Resolve ", TextTypeEnum.INDICATOR),
 	REINFORCEMENTS("Reinforcements", TextTypeEnum.INDICATOR),
 
 	;
