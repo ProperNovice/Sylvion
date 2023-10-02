@@ -24,6 +24,7 @@ import gameStates.ExecuteCardSylvanAnimalDoves;
 import gameStates.ExecuteCardSylvanAnimalElephant;
 import gameStates.ExecuteCardSylvanAnimalFish;
 import gameStates.ExecuteCardSylvanAnimalOwl;
+import gameStates.ExecuteCardSylvanAnimalSquirrels;
 import gameStates.ExecuteCardSylvanAnimalStag;
 import gameStates.ExecuteCardSylvanAnimalWhale;
 import gameStates.ExecuteGeyser;
@@ -133,6 +134,7 @@ public enum Model {
 				break;
 
 			case SQUIRRELS:
+				classToResolve = ExecuteCardSylvanAnimalSquirrels.class;
 				break;
 
 			case STAG:
@@ -206,7 +208,9 @@ public enum Model {
 					if (!cardElementalFound)
 						continue;
 
-				}
+				} else if (eCardSylvanAnimal.equals(ECardSylvanAnimal.SQUIRRELS)
+						&& ListsManager.INSTANCE.ravageStacks.getValue(0).getArrayList().isEmpty())
+					continue;
 
 			}
 

@@ -113,7 +113,7 @@ public class JUnit extends GameState {
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.DOVES));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.FISH));
 		hand.addLast(new CardSylvanFountain(2));
-		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.OWL));
+		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.SQUIRRELS));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.HEDGEHOG));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.OWL));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.STAG));
