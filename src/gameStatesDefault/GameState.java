@@ -91,6 +91,14 @@ public abstract class GameState {
 
 	}
 
+	public void handleCardPositionBattlefieldPressed(CardPosition cardPosition) {
+
+	}
+
+	public void handleCardPositionEdgesPressed() {
+
+	}
+
 	protected void handleCardPressedHand(Card card) {
 
 	}

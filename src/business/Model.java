@@ -20,10 +20,12 @@ import gameStates.ExecuteCardRavageSupportGeyser;
 import gameStates.ExecuteCardRavageSupportSimoon;
 import gameStates.ExecuteCardRavageSupportStoneRain;
 import gameStates.ExecuteCardRavageSupportTemporalTornado;
+import gameStates.ExecuteCardSylvanAnimalDoves;
 import gameStates.ExecuteCardSylvanAnimalElephant;
 import gameStates.ExecuteCardSylvanAnimalFish;
 import gameStates.ExecuteCardSylvanAnimalOwl;
 import gameStates.ExecuteCardSylvanAnimalStag;
+import gameStates.ExecuteCardSylvanAnimalWhale;
 import gameStates.ExecuteGeyser;
 import gameStates.ReturnTwoCardsFromHandToTopOfTheDeck;
 import gameStatesDefault.EndGameLost;
@@ -44,6 +46,23 @@ public enum Model {
 	INSTANCE;
 
 	public Card cardToPlay = null;
+
+	public void executeCardSylvanAnimalDoves() {
+
+		for (Integer integer : ListsManager.INSTANCE.ravageStacks) {
+
+			ArrayList<CardRavage> list = ListsManager.INSTANCE.ravageStacks.getValue(integer)
+					.getArrayList();
+
+			if (list.isEmpty())
+				return;
+
+			CardRavage cardRavage = list.removeFirst();
+			cardRavage.getImageView().setVisible(false);
+
+		}
+
+	}
 
 	public void executeCardSylvanAnimalFish() {
 
@@ -98,6 +117,7 @@ public enum Model {
 			switch (eCardSylvanAnimal) {
 
 			case DOVES:
+				classToResolve = ExecuteCardSylvanAnimalDoves.class;
 				break;
 
 			case ELEPHANT:
@@ -120,6 +140,7 @@ public enum Model {
 				break;
 
 			case WHALE:
+				classToResolve = ExecuteCardSylvanAnimalWhale.class;
 				break;
 
 			default:
@@ -163,7 +184,8 @@ public enum Model {
 				if (eCardSylvanAnimal.equals(ECardSylvanAnimal.HEDGEHOG))
 					continue;
 
-				else if (eCardSylvanAnimal.equals(ECardSylvanAnimal.ELEPHANT)) {
+				else if (eCardSylvanAnimal.equals(ECardSylvanAnimal.ELEPHANT)
+						|| eCardSylvanAnimal.equals(ECardSylvanAnimal.WHALE)) {
 
 					boolean cardElementalFound = false;
 
@@ -581,7 +603,7 @@ public enum Model {
 
 	}
 
-	private void damageTrees(int strength) {
+	public void damageTrees(int strength) {
 
 		Logger.INSTANCE.log("damaging trees");
 		Logger.INSTANCE.logNewLine(strength);
@@ -607,7 +629,7 @@ public enum Model {
 
 	}
 
-	private void executeMovement(CardElemental cardElemental, CardPosition cardPosition) {
+	public void executeMovement(CardElemental cardElemental, CardPosition cardPosition) {
 
 		// card position is empty
 

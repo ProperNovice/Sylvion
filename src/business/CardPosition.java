@@ -1,6 +1,7 @@
 package business;
 
 import cards.Card;
+import utils.Flow;
 import utils.Interfaces.ISelectCoordinatesAble;
 import utils.Logger;
 import utils.ShutDown;
@@ -62,9 +63,7 @@ public class CardPosition implements ISelectCoordinatesAble {
 
 	@Override
 	public void handleMousePressedPrimary() {
-
-		print();
-
+		Flow.INSTANCE.getGameStateCurrent().handleCardPositionBattlefieldPressed(this);
 	}
 
 	public void print() {

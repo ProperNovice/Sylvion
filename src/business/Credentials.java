@@ -16,7 +16,8 @@ public enum Credentials {
 	public RearrangeTypeEnum rearrangeTypeEnumText = RearrangeTypeEnum.PIVOT;
 
 	public Vector2 dCard, dEnergy;
-	public Vector2 cCardPosition, cDeck, cDiscardPile, cHand, cEdges, cRavageStack, cEnergy;
+	public Vector2 cCardPosition, cDeck, cDiscardPile, cHand, cEdges, cRavageStack, cEnergy,
+			cCardPositionEdges;
 	public double gapBetweenEdges;
 
 	private Credentials() {
@@ -134,6 +135,13 @@ public enum Credentials {
 		x -= this.dGapBetweenComponents.x;
 		y = this.gapBetweenBorders;
 		this.cEnergy = new Vector2(x, y);
+
+		// c card position edges
+
+		x = this.cEdges.x;
+		y = this.dFrame.y;
+		y /= 2;
+		this.cCardPositionEdges = new Vector2(x, y);
 
 	}
 

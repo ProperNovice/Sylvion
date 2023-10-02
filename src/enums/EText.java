@@ -26,6 +26,8 @@ public enum EText {
 	DOWN("Down", TextTypeEnum.OPTION),
 	LEFT("Left", TextTypeEnum.OPTION),
 	RIGHT("Right", TextTypeEnum.OPTION),
+	CHOOSE_ELEMENTAL("Choose Elemental", TextTypeEnum.INDICATOR),
+	CHOOSE_CARD_POSITION("Choose position", TextTypeEnum.INDICATOR),
 
 	;
 

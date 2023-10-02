@@ -56,11 +56,11 @@ public class JUnit extends GameState {
 
 	public void addCardsToBattlefield() {
 
-//		addCardsToPosition(0, 0, new CardSylvanFountain(2));
-		addCardsToPosition(0, 0, new CardSylvanTree(1));
-//		addCardsToPosition(0, 1, new CardSylvanFountain(2));
+		addCardsToPosition(0, 0, new CardSylvanFountain(2));
+//		addCardsToPosition(0, 0, new CardSylvanTree(1));
+		addCardsToPosition(0, 1, new CardSylvanFountain(2));
 //		addCardsToPosition(0, 1, new CardElemental(0));
-		addCardsToPosition(0, 1, new CardSylvanTree(1));
+//		addCardsToPosition(0, 1, new CardSylvanTree(1));
 //		addCardsToPosition(0, 2, new CardSylvanFountain(2));
 		addCardsToPosition(0, 2, new CardSylvanTree(1));
 		addCardsToPosition(0, 3, new CardElemental(1));
@@ -107,8 +107,10 @@ public class JUnit extends GameState {
 
 		hand.addLast(new CardSylvanFountain(3));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.ELEPHANT));
+		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.WHALE));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.HEDGEHOG));
 		hand.addLast(new CardSylvanFountain(1));
+		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.DOVES));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.FISH));
 		hand.addLast(new CardSylvanFountain(2));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.OWL));
