@@ -26,12 +26,12 @@ public class PayForTheCardToPlay extends GameState {
 
 		if (this.costRemainingToBePaid > 0) {
 
-			handleEText();
+			handleETextToShow();
 			return;
 
 		}
 
-		Model.INSTANCE.resolveCardToPlay();
+		Model.INSTANCE.resolveCardPlayed();
 		proceedToNextGameState();
 
 	}
@@ -49,7 +49,7 @@ public class PayForTheCardToPlay extends GameState {
 
 		SelectImageViewManager.INSTANCE.releaseSelectImageViews();
 
-		Model.INSTANCE.resolveCardToPlay();
+		Model.INSTANCE.resolveCardPlayed();
 		proceedToNextGameState();
 
 	}
@@ -61,15 +61,15 @@ public class PayForTheCardToPlay extends GameState {
 			return;
 
 		card.reverseSelectImageView();
-		handleEText();
+		handleETextToShow();
 
 	}
 
-	private void handleEText() {
+	private void handleETextToShow() {
 
 		concealText();
 
-		EText.CHOOSE_CARDS.show();
+		EText.CHOOSE_CARDS.showAdditionally(" to pay");
 
 		if (this.costRemainingToBePaid == SelectImageViewManager.INSTANCE
 				.getSelectedImageViewAbles().size())

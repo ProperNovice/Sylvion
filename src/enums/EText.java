@@ -20,6 +20,12 @@ public enum EText {
 	CHOOSE_CARDS("Choose cards", TextTypeEnum.INDICATOR),
 	RESOLVE("Resolve ", TextTypeEnum.INDICATOR),
 	REINFORCEMENTS("Reinforcements", TextTypeEnum.INDICATOR),
+	PASS("Pass", TextTypeEnum.OPTION),
+	ERUPT_GEYSER("Erupt Geyser", TextTypeEnum.INDICATOR),
+	UP("Up", TextTypeEnum.OPTION),
+	DOWN("Down", TextTypeEnum.OPTION),
+	LEFT("Left", TextTypeEnum.OPTION),
+	RIGHT("Right", TextTypeEnum.OPTION),
 
 	;
 

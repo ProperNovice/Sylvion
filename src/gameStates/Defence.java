@@ -1,5 +1,6 @@
 package gameStates;
 
+import business.CardPosition;
 import business.Model;
 import cards.Card;
 import enums.EText;
@@ -20,7 +21,8 @@ public class Defence extends GameState {
 
 		}
 
-		EText.CHOOSE_CARD.show();
+		EText.CHOOSE_CARD.showAdditionally(" to play");
+		EText.PASS.show();
 
 	}
 
@@ -30,12 +32,31 @@ public class Defence extends GameState {
 		if (!SelectImageViewManager.INSTANCE.getSelectedImageViewAbles().contains(card))
 			return;
 
+		getFlow().addFirst(PayForTheCardToPlay.class);
+		handleCardPressedCredentials(card);
+
+		proceedToNextGameState();
+
+	}
+
+	@Override
+	protected void handleCardPressedBattlefield(Card card, CardPosition cardPosition) {
+
+		if (!SelectImageViewManager.INSTANCE.getSelectedImageViewAbles().contains(card))
+			return;
+
+		handleCardPressedCredentials(card);
+		Model.INSTANCE.resolveCardPlayed();
+
+		proceedToNextGameState();
+
+	}
+
+	private void handleCardPressedCredentials(Card card) {
+
 		concealText();
 		SelectImageViewManager.INSTANCE.releaseSelectImageViews();
 		Model.INSTANCE.cardToPlay = card;
-
-		getFlow().addFirst(PayForTheCardToPlay.class);
-		proceedToNextGameState();
 
 	}
 

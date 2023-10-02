@@ -1,6 +1,8 @@
 package business;
 
+import cards.Card;
 import utils.ArrayList;
+import utils.ShutDown;
 import utils.Vector2;
 
 public enum Battlefield {
@@ -53,6 +55,19 @@ public enum Battlefield {
 
 	public ArrayList<CardPosition> getCardPositionsClone() {
 		return this.list.clone();
+	}
+
+	public CardPosition getCardPositionContainingCard(Card card) {
+
+		for (CardPosition cardPosition : this.list)
+			if (cardPosition.containsCard())
+				if (cardPosition.getCard().equals(card))
+					return cardPosition;
+
+		ShutDown.INSTANCE.execute();
+
+		return null;
+
 	}
 
 }

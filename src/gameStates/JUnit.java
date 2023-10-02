@@ -13,6 +13,7 @@ import cards.CardRavage;
 import cards.CardRavageSupport;
 import cards.CardSylvanAnimal;
 import cards.CardSylvanFountain;
+import cards.CardSylvanTree;
 import enums.ECardRavageSupport;
 import enums.ECardSylvanAnimal;
 import gameStatesDefault.GameState;
@@ -38,8 +39,8 @@ public class JUnit extends GameState {
 		addCardsToDeck();
 		addCardsToHand();
 		addCardsToDiscardPile();
-		damageTrees(1);
-		addEnergy(1);
+		damageTrees(5);
+		addEnergy(6);
 
 //		getFlow().addLast(RevealRavageCards.class);
 //		getFlow().addLast(PlayHedgehog.class);
@@ -55,9 +56,13 @@ public class JUnit extends GameState {
 
 	public void addCardsToBattlefield() {
 
-		addCardsToPosition(0, 0, new CardSylvanFountain(2));
-		addCardsToPosition(0, 1, new CardSylvanFountain(2));
-		addCardsToPosition(0, 2, new CardSylvanFountain(2));
+//		addCardsToPosition(0, 0, new CardSylvanFountain(2));
+		addCardsToPosition(0, 0, new CardSylvanTree(1));
+//		addCardsToPosition(0, 1, new CardSylvanFountain(2));
+//		addCardsToPosition(0, 1, new CardElemental(0));
+		addCardsToPosition(0, 1, new CardSylvanTree(1));
+//		addCardsToPosition(0, 2, new CardSylvanFountain(2));
+		addCardsToPosition(0, 2, new CardSylvanTree(1));
 		addCardsToPosition(0, 3, new CardElemental(1));
 //		addCardsToPosition(0, 4, new CardElemental(3));
 		addCardsToPosition(0, 4, new CardRavageSupport(ECardRavageSupport.GEYSER));
@@ -80,6 +85,7 @@ public class JUnit extends GameState {
 		addCardsToPosition(2, 4, new CardRavageSupport(ECardRavageSupport.GEYSER));
 
 		addCardsToPosition(3, 0, new CardElemental(2));
+		addCardsToPosition(3, 3, new CardRavageSupport(ECardRavageSupport.GEYSER));
 		addCardsToPosition(3, 4, new CardRavageSupport(ECardRavageSupport.SIMOON));
 
 	}
@@ -103,6 +109,7 @@ public class JUnit extends GameState {
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.ELEPHANT));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.HEDGEHOG));
 		hand.addLast(new CardSylvanFountain(1));
+		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.FISH));
 		hand.addLast(new CardSylvanFountain(2));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.OWL));
 		hand.addLast(new CardSylvanAnimal(ECardSylvanAnimal.HEDGEHOG));

@@ -20,6 +20,11 @@ import gameStates.ExecuteCardRavageSupportGeyser;
 import gameStates.ExecuteCardRavageSupportSimoon;
 import gameStates.ExecuteCardRavageSupportStoneRain;
 import gameStates.ExecuteCardRavageSupportTemporalTornado;
+import gameStates.ExecuteCardSylvanAnimalElephant;
+import gameStates.ExecuteCardSylvanAnimalFish;
+import gameStates.ExecuteCardSylvanAnimalOwl;
+import gameStates.ExecuteCardSylvanAnimalStag;
+import gameStates.ExecuteGeyser;
 import gameStates.ReturnTwoCardsFromHandToTopOfTheDeck;
 import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
@@ -30,6 +35,7 @@ import utils.Flow;
 import utils.HashMap;
 import utils.ListImageViewAbles;
 import utils.Logger;
+import utils.ObjectPool;
 import utils.SelectImageViewManager;
 import utils.ShutDown;
 
@@ -39,7 +45,48 @@ public enum Model {
 
 	public Card cardToPlay = null;
 
-	public void resolveCardToPlay() {
+	public void executeCardSylvanAnimalFish() {
+
+		for (int counter = 1; counter <= 3; counter++)
+			ListsManager.INSTANCE.energy.getArrayList()
+					.addLast(ObjectPool.INSTANCE.acquire(EnergyImageView.class));
+
+		ListsManager.INSTANCE.energy.relocateImageViews();
+
+	}
+
+	public void executeCardSylvanAnimalStag() {
+
+		int edgesToFlipUp = 2;
+		int treesInBattlefield = 0;
+
+		for (CardPosition cardPosition : Battlefield.INSTANCE.getCardPositionsClone()) {
+
+			if (!cardPosition.containsCard())
+				continue;
+
+			Card card = cardPosition.getCard();
+
+			if (card instanceof CardSylvanTree)
+				treesInBattlefield++;
+
+		}
+
+		int treesToHeal = Math.max(edgesToFlipUp, treesInBattlefield);
+
+		Logger.INSTANCE.logNewLine("trees to heal -> " + treesToHeal);
+
+		healTrees(treesToHeal);
+
+	}
+
+	public void executeCardSylvanAnimalOwl() {
+		getFlow().addFirst(DrawCard.class, 3);
+	}
+
+	public void resolveCardPlayed() {
+
+		Class<? extends GameState> classToResolve = null;
 
 		// handle card animal
 
@@ -54,18 +101,22 @@ public enum Model {
 				break;
 
 			case ELEPHANT:
+				classToResolve = ExecuteCardSylvanAnimalElephant.class;
 				break;
 
 			case FISH:
+				classToResolve = ExecuteCardSylvanAnimalFish.class;
 				break;
 
 			case OWL:
+				classToResolve = ExecuteCardSylvanAnimalOwl.class;
 				break;
 
 			case SQUIRRELS:
 				break;
 
 			case STAG:
+				classToResolve = ExecuteCardSylvanAnimalStag.class;
 				break;
 
 			case WHALE:
@@ -77,11 +128,23 @@ public enum Model {
 
 			}
 
+		} else if (this.cardToPlay instanceof CardRavageSupport) {
+
+			CardRavageSupport cardRavageSupport = (CardRavageSupport) this.cardToPlay;
+			ECardRavageSupport eCardRavageSupport = cardRavageSupport.getECardRavageSupport();
+
+			if (eCardRavageSupport.equals(ECardRavageSupport.GEYSER))
+				classToResolve = ExecuteGeyser.class;
+
 		}
+
+		getFlow().addFirst(classToResolve);
 
 	}
 
 	public void defenceSelectPlayableCards() {
+
+		// playable cards hand
 
 		int energyAvailableToSpend = 0;
 		energyAvailableToSpend += ListsManager.INSTANCE.energy.getArrayList().size();
@@ -100,6 +163,29 @@ public enum Model {
 				if (eCardSylvanAnimal.equals(ECardSylvanAnimal.HEDGEHOG))
 					continue;
 
+				else if (eCardSylvanAnimal.equals(ECardSylvanAnimal.ELEPHANT)) {
+
+					boolean cardElementalFound = false;
+
+					for (CardPosition cardPosition : Battlefield.INSTANCE.getCardPositionsClone()) {
+
+						if (!cardPosition.containsCard())
+							continue;
+
+						Card cardTemp = cardPosition.getCard();
+
+						if (!(cardTemp instanceof CardElemental))
+							continue;
+
+						cardElementalFound = true;
+
+					}
+
+					if (!cardElementalFound)
+						continue;
+
+				}
+
 			}
 
 			ICostAble iCostAble = (ICostAble) card;
@@ -109,6 +195,26 @@ public enum Model {
 				continue;
 
 			SelectImageViewManager.INSTANCE.addSelectImageViewAble(card);
+
+		}
+
+		// geyser in battlefield
+
+		for (CardPosition cardPosition : Battlefield.INSTANCE.getCardPositionsClone()) {
+
+			if (!cardPosition.containsCard())
+				continue;
+
+			Card card = cardPosition.getCard();
+
+			if (!(card instanceof CardRavageSupport))
+				continue;
+
+			CardRavageSupport cardRavageSupport = (CardRavageSupport) card;
+			ECardRavageSupport eCardRavageSupport = cardRavageSupport.getECardRavageSupport();
+
+			if (eCardRavageSupport.equals(ECardRavageSupport.GEYSER))
+				cardRavageSupport.setSelected();
 
 		}
 
@@ -452,10 +558,32 @@ public enum Model {
 
 	}
 
+	private void healTrees(int value) {
+
+		Logger.INSTANCE.log("healing trees");
+		Logger.INSTANCE.logNewLine(value);
+
+		ArrayList<CardEdge> edges = ListsManager.INSTANCE.edges.getArrayList().clone();
+		edges.reverse();
+
+		for (CardEdge cardEdge : edges) {
+
+			if (value == 0)
+				break;
+
+			if (cardEdge.getImageView().isFlippedFront())
+				continue;
+
+			cardEdge.getImageView().flipFront();
+			value--;
+
+		}
+
+	}
+
 	private void damageTrees(int strength) {
 
 		Logger.INSTANCE.log("damaging trees");
-
 		Logger.INSTANCE.logNewLine(strength);
 
 		for (CardEdge cardEdge : ListsManager.INSTANCE.edges) {

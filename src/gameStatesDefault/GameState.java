@@ -10,6 +10,7 @@ import utils.ArrayList;
 import utils.Flow;
 import utils.KeyCodeHandler;
 import utils.Logger;
+import utils.SelectImageViewManager;
 import utils.TextManager;
 
 public abstract class GameState {
@@ -71,6 +72,10 @@ public abstract class GameState {
 
 	protected final ListsManager getListsManager() {
 		return ListsManager.INSTANCE;
+	}
+
+	protected final SelectImageViewManager getSelectImageViewManager() {
+		return SelectImageViewManager.INSTANCE;
 	}
 
 	public final void handleCardPressed(Card card) {
