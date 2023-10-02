@@ -9,6 +9,7 @@ import listCredentials.Edges;
 import listCredentials.Energy;
 import listCredentials.Hand;
 import listCredentials.RavageStack;
+import listCredentials.SquirrelStack;
 import utils.ArrayList;
 import utils.HashMap;
 import utils.Interfaces.IImageViewAble;
@@ -22,7 +23,7 @@ public enum ListsManager {
 	public ListImageViewAbles<Card> deck, discardPile, hand;
 	public ListImageViewAbles<CardEdge> edges;
 	public ListImageViewAbles<EnergyImageView> energy;
-	public HashMap<Integer, ListImageViewAbles<CardRavage>> ravageStacks = new HashMap<>();
+	public HashMap<Integer, ListImageViewAbles<CardRavage>> ravageStacks, squirrelsStack;
 
 	public void instantiate() {
 
@@ -31,18 +32,30 @@ public enum ListsManager {
 		this.hand = new ListImageViewAbles<>(Hand.class);
 		this.edges = new ListImageViewAbles<>(Edges.class);
 		this.energy = new ListImageViewAbles<>(Energy.class);
+		this.ravageStacks = new HashMap<>();
+		this.squirrelsStack = new HashMap<>();
 
-		// ravage stacks
+		// ravage & squirrels stacks
 
 		for (int counter = 0; counter <= 3; counter++) {
 
-			ListImageViewAbles<CardRavage> list = new ListImageViewAbles<>(RavageStack.class);
+			ListImageViewAbles<CardRavage> listRavageStack = new ListImageViewAbles<>(
+					RavageStack.class);
+			ListImageViewAbles<CardRavage> listSquirrelStack = new ListImageViewAbles<>(
+					SquirrelStack.class);
 
-			list.getListCredentials().coordinatesList.y += counter * Credentials.INSTANCE.dCard.y;
-			list.getListCredentials().coordinatesList.y += counter
+			listRavageStack.getListCredentials().coordinatesList.y += counter
+					* Credentials.INSTANCE.dCard.y;
+			listRavageStack.getListCredentials().coordinatesList.y += counter
 					* Credentials.INSTANCE.dGapBetweenComponents.y;
 
-			this.ravageStacks.put(counter, list);
+			listSquirrelStack.getListCredentials().coordinatesList.y += counter
+					* Credentials.INSTANCE.dCard.y;
+			listSquirrelStack.getListCredentials().coordinatesList.y += counter
+					* Credentials.INSTANCE.dGapBetweenComponents.y;
+
+			this.ravageStacks.put(counter, listRavageStack);
+			this.squirrelsStack.put(counter, listRavageStack);
 
 		}
 

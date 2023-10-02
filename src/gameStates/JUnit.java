@@ -50,6 +50,7 @@ public class JUnit extends GameState {
 //		getFlow().addLast(ExecuteCardRavageSupportBlaze.class);
 //		getFlow().addLast(ReturnTwoCardsFromHandToTopOfTheDeck.class);
 //		getFlow().addLast(Reinforcements.class);
+
 		proceedToNextGameState();
 
 	}

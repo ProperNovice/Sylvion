@@ -17,7 +17,7 @@ public enum Credentials {
 
 	public Vector2 dCard, dEnergy;
 	public Vector2 cCardPosition, cDeck, cDiscardPile, cHand, cEdges, cRavageStack, cEnergy,
-			cCardPositionEdges;
+			cCardPositionEdges, cSquirrelStack;
 	public double gapBetweenEdges;
 
 	private Credentials() {
@@ -111,6 +111,7 @@ public enum Credentials {
 		x -= this.dCard.x / 2;
 		y = this.cCardPosition.y;
 		this.cRavageStack = new Vector2(x, y);
+		this.gapBetweenEdges = y;
 
 		// c text panel
 
@@ -142,6 +143,14 @@ public enum Credentials {
 		y = this.dFrame.y;
 		y /= 2;
 		this.cCardPositionEdges = new Vector2(x, y);
+
+		// c squirrel stack
+
+		x = this.cRavageStack.x;
+		x -= this.dCard.x;
+		x -= this.dGapBetweenComponents.x;
+		y = this.cRavageStack.y;
+		this.cSquirrelStack = new Vector2(x, y);
 
 	}
 
