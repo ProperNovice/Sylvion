@@ -46,8 +46,8 @@ public class ImageView implements INode {
 		this.widthOriginal = this.imageView.minWidth(0);
 		this.heightOriginal = this.imageView.minHeight(0);
 
-		LayerZ.INSTANCE.addImageViewAbleToLayer(this, eLayerZ, this.imageView);
-		LayerZ.INSTANCE.toFrontImageview(this);
+		LayerZManager.INSTANCE.addImageViewAbleToLayer(this, eLayerZ, this.imageView);
+		LayerZManager.INSTANCE.toFrontImageview(this);
 
 		if (!(object instanceof IImageViewAble))
 			return;
@@ -62,7 +62,7 @@ public class ImageView implements INode {
 	@Override
 	public void setVisible(boolean value) {
 		this.isVisible = value;
-		LayerZ.INSTANCE.setVisible(this.isVisible, this);
+		LayerZManager.INSTANCE.setVisible(this.isVisible, this);
 	}
 
 	@Override
@@ -72,12 +72,12 @@ public class ImageView implements INode {
 
 	@Override
 	public void toBack() {
-		LayerZ.INSTANCE.toBackImageview(this);
+		LayerZManager.INSTANCE.toBackImageview(this);
 	}
 
 	@Override
 	public void toFront() {
-		LayerZ.INSTANCE.toFrontImageview(this);
+		LayerZManager.INSTANCE.toFrontImageview(this);
 	}
 
 	@Override

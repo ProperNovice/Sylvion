@@ -1,10 +1,9 @@
 package utils;
 
 import enums.ELayerZ;
-import utils.Interfaces.IImageViewAble;
 import utils.Interfaces.IUpdateAble;
 
-public enum LayerZ implements IUpdateAble {
+public enum LayerZManager implements IUpdateAble {
 
 	INSTANCE;
 
@@ -12,7 +11,7 @@ public enum LayerZ implements IUpdateAble {
 	private HashMap<ImageView, javafx.scene.image.ImageView> listImageViewsFX = new HashMap<>();
 	private ArrayList<TextIndicator> textIndicators = new ArrayList<>();
 
-	private LayerZ() {
+	private LayerZManager() {
 
 		for (ELayerZ eLayerZ : ELayerZ.values())
 			this.mapLayerZ.put(eLayerZ, new ArrayList<ImageView>());
@@ -86,17 +85,6 @@ public enum LayerZ implements IUpdateAble {
 		if (!value)
 			if (!list.contains(imageView))
 				list.addFirst(imageView);
-
-		toFront();
-
-	}
-
-	public void showImageViewAblesToPanel(ListImageViewAbles<? extends IImageViewAble> list) {
-
-		this.mapLayerZ.getValue(ELayerZ.PANEL_BACKGROUND).getFirst().setVisible(true);
-
-		for (IImageViewAble imageViewAble : list)
-			this.mapLayerZ.getValue(ELayerZ.PANEL_IMAGEVIEWS).addLast(imageViewAble.getImageView());
 
 		toFront();
 

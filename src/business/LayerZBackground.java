@@ -4,13 +4,13 @@ import enums.ELayerZ;
 import utils.Background;
 import utils.HashMap;
 
-public enum PanelBackground {
+public enum LayerZBackground {
 
 	INSTANCE;
 
 	private HashMap<ELayerZ, Background> hashMap = new HashMap<>();
 
-	private PanelBackground() {
+	private LayerZBackground() {
 
 	}
 
@@ -21,6 +21,7 @@ public enum PanelBackground {
 
 		Background background = this.hashMap.getValue(eLayerZ);
 		background.getImageView().setVisible(value);
+		background.getImageView().toFront();
 
 	}
 

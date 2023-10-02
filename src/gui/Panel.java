@@ -9,7 +9,6 @@ public class Panel extends Parent {
 
 		InstancesGui.INSTANCE.setParent(this);
 		new Background(ELayerZ.BACKGROUND);
-		new Background(ELayerZ.PANEL_BACKGROUND).getImageView().setVisible(false);
 
 	}
 
