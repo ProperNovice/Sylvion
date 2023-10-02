@@ -90,15 +90,6 @@ public enum LayerZManager implements IUpdateAble {
 
 	}
 
-	public void hideImageViewAblesFromPanel() {
-
-		this.mapLayerZ.getValue(ELayerZ.PANEL_BACKGROUND).getFirst().setVisible(false);
-		this.mapLayerZ.getValue(ELayerZ.PANEL_IMAGEVIEWS).clear();
-
-		toFront();
-
-	}
-
 	@Override
 	public void update() {
 
